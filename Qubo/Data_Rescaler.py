@@ -4,7 +4,7 @@ from sklearn import preprocessing
 
 #first transformed german.data into german.csv
 
-column_Names = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]
+column_Names = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"]
 #column_Names = ['Status of existing checking account','Duration in month','Credit history','Purpose','Credit amount','Savings account/bonds','Present employment since','Installment rate in percentage of disposable income','Personal status and sex','Other debtors / guarantors','Present residence since','Property','Age in years','Other installment plans','Housing','Number of existing credits at this bank','Job','Number of people being liable to provide maintenance for','Telephone','foreign worker']
 dataframe = pd.read_csv("Data_folder/German/german.csv", names=column_Names)
 #numData = dataframe.iloc[:,[1,4,7,10,12,15,17]]
@@ -46,8 +46,8 @@ def binarizingWGetDummies (inputData):
     '''The first binary indicator in each group was removed (for k indicators, only k − 1 are independent).
         So must drop first column of each group converted on one-hot in binarizing'''
     catData = inputData[['1','3','4','6','7','9','10','12','14','15','17']]
-    output = pd.get_dummies(catData, drop_first=True)
-    return output       
+    outputData = pd.get_dummies(catData, drop_first=True)
+    return outputData       
         
 
 def normalizing (inputData):
@@ -57,8 +57,8 @@ def normalizing (inputData):
     scaler.mean_
     scaler.scale_
     tmp = scaler.transform(numData)
-    output = pd.DataFrame(tmp)
-    return output
+    outputData = pd.DataFrame(tmp)
+    return outputData
 
 def classifizing (inputData):
     '''Column as classifier: 19,20
@@ -78,9 +78,13 @@ def classifizing (inputData):
     classData.loc[classData["20"]=="A201", "20"]=1
     return classData
 
+def vector_V (inputData):
+    v = inputData.iloc[:,20]
+    return v
+
 def rescaledDataframe (input):
     catData = binarizingWGetDummies(input)
     numData = normalizing(input)
     classData = classifizing(input)
-    output = catData.join(numData).join(classData)
-    return output
+    outputData = catData.join(numData).join(classData)
+    return outputData
