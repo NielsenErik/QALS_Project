@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 from warnings import catch_warnings
 import pandas as pd
+import numpy as np
 from sklearn import preprocessing
 
 '''The data consists of 20 features (7 numerical, 13 categorical) and a binary classification (good credit or bad credit).
@@ -74,22 +75,25 @@ def classifizing (inputData):
 	      foreign worker
 	      A201 : yes
 	      A202 : no'''
-    classData = inputData[['19','20']]
-    classData.loc[classData["19"]=="A191", "19"]=0
-    classData.loc[classData["19"]=="A192", "19"]=1
-    classData.loc[classData["20"]=="A202", "20"]=0
-    classData.loc[classData["20"]=="A201", "20"]=1
-    return classData
+    
+    inputData.loc[inputData["19"]=="A191", "19"]=0
+    inputData.loc[inputData["19"]=="A192", "19"]=1
+    inputData.loc[inputData["20"]=="A202", "20"]=0
+    inputData.loc[inputData["20"]=="A201", "20"]=1
+    outputData = inputData[['19','20']]
+    return outputData
 
 def vector_V (inputData):
     inputData.loc[inputData["21"]==1, "21"]=0
     inputData.loc[inputData["21"]==2, "21"]=1
-    v = inputData['21']      
+    v = inputData['21'].to_numpy()      
     return v
 
 def rescaledDataframe (input):
     catData = binarizingWGetDummies(input)
     numData = normalizing(input)
     classData = classifizing(input)
-    outputData = catData.join(numData).join(classData)
+    tmp = catData.join(numData).join(classData)
+    outputData = tmp.to_numpy()
     return outputData
+
