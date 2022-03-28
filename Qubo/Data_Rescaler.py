@@ -1,7 +1,6 @@
 #!/usr/local/bin/python3
 from warnings import catch_warnings
 import pandas as pd
-import numpy as np
 from sklearn import preprocessing
 
 '''The data consists of 20 features (7 numerical, 13 categorical) and a binary classification (good credit or bad credit).
