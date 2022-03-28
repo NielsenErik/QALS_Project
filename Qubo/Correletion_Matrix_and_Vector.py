@@ -5,6 +5,7 @@ from Data_Rescaler import rescaledDataframe, vector_V, german_credit_data
 import numpy as np
 
 def column_Correlation(inputData, v_Vector):
+    
     '''This function is made to find correlation between the columns, and each column
         with quality vector V describe in the paper.
         the paper say tha for simplicity in convinient to use peason correlation
@@ -22,13 +23,6 @@ def column_Correlation(inputData, v_Vector):
         for j in range(columns):            
             y = np.asarray(inputData[:,j].astype(float))
             tmpMatrix , tmp = stats.spearmanr(x,y)  
-            corrColumnsMatrix[i,j] = tmpMatrix     
-    print(corrColumnsMatrix, " ", corrColumnsMatrix.shape)
-    print(corrColumnsV)
+            corrColumnsMatrix[i,j] = tmpMatrix
     return corrColumnsV, corrColumnsMatrix
 '''Done ro column i column j and ro column j e vector v'''
-
-'''data = german_credit_data()
-dataMatrix = rescaledDataframe(data)
-v = vector_V(data)
-column_Correlation(dataMatrix, v)'''
