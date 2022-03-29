@@ -3,6 +3,8 @@ from warnings import catch_warnings
 import pandas as pd
 from sklearn import preprocessing
 
+'''THIS FILE IS SPECIFICALLY MADE FOR GERMAN CREDIT DATA'''
+
 '''The data consists of 20 features (7 numerical, 13 categorical) and a binary classification (good credit or bad credit).
 There are 1000 rows, of which 700 are ‘‘good’’ and 300 are ‘‘bad’’. The data is intended for use with a cost matrix, where
 giving credit to a bad applicant is five times as bad as not giving credit to a good applicant. In this study, however, we
