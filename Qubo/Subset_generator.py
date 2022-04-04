@@ -21,10 +21,6 @@ def subset_Vector (dim, k):
     for i in range(dim):
         for j in range(k):
             if( i == tmp[j]):
-                x[i]=1
+                x[i]=int(1)
     return x
-            
-    
-'''print(subset_Generator(48, 30))  
-print(" ")
-print(x_vector(48,30))'''
+

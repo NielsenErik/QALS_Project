@@ -21,44 +21,33 @@ def qubo_Matrix (alpha, inputData):
     for i in range(dim):
         for j in range(dim):
             if(j != i):
-                qubo[i,j] = (1-alpha)*rho_column[i,j]
+                qubo[i,j] = -(1-alpha)*rho_column[i,j]
             else:
                 qubo[i,j] = alpha*rho_vector_V[i]  
                   
     return qubo
 
-def test_qubo(alpha, inputData):
+'''def test_qubo(alpha, inputData):
+    #Funzione di test per creare un QUBO matrix
     b = qubo_Matrix(alpha, inputData)
-    a_file = open("matrix.txt", "w")
+    a_file = open("matrix_Q.txt", "w")
     np.savetxt(a_file, b)
     a_file.close()
-        
-
-test_qubo(0.4, german_credit_data())
-'''def qubo_function (x_subset, alpha):
-    try:
-        if(alpha<0 and alpha >1):
-            raise ValueError
-        else:
-            input_Matrix = rescaledDataframe(german_credit_data())
-            v_array = vector_V(german_credit_data())
-            rho_vector_V, rho_column = column_Correlation(input_Matrix, v_array)
-            dim = len(rho_vector_V)
-            a = 0
-            b = 0
-            for i in range(dim):
-                a+=x_subset[i]*abs(rho_vector_V[i])
-                for j in range(dim):
-                    if(j != i):
-                        b += x_subset[i]*x_subset[j]*abs(rho_column[i,j])      
-            qubo = -(alpha*a-(1-alpha)*b)      
-    except ValueError:
-        print("Alpha value error")
-    return qubo
     
-def test (nIteration, alpha, dim, k):
-    for i in range(nIteration):
-        print(i+1, '. ',qubo_function(subset_Vector(dim, k), alpha))
+    
+def test_qubo_function():
+    #Funzione di test per creare una funzione e trovare il minimo
+    print("Computing")
+    x = subset_Vector(48, 35)
+    qubo = qubo_Matrix(0.3, german_credit_data())    
+    fqx = -x.T*qubo*x
+    y = np.argmin(fqx)
+    print("Argmin di f(x) = x.T*Q*x: ", y)
+    a_file = open("fqx.txt", "w")
+    np.savetxt(a_file, fqx)
+    a_file.close()
+    print("DONE")
 
-i= 0        
-print(test(10, 0.6, 48, 28))'''
+        
+for i in range (10):
+    test_qubo_function()'''
