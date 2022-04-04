@@ -61,7 +61,7 @@ data = german_credit_data()
 
 #tmp = subset_array_generator_per_k(1000,48,24)
 #print(tmp)
-
+'''ì'''
 pos, qubo_result, f_value = qubo_solver_per_K(100, 48, 24, 0.977, data)
 #qubo_solver(1000, 48, 0.977, german_credit_data() )
 #print(result)  
