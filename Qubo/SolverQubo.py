@@ -1,14 +1,7 @@
 #!/usr/local/bin/python3
-from dwave.system.samplers import DWaveSampler
-from dwave.system import LeapHybridSampler
-from dwave.system.samplers.dwave_sampler import DWaveSampler
-import dwave_networkx as dnx
-import networkx as nx
-import neal
-import time
+from script import annealer, hybrid
 import numpy as np 
 import pandas as pd
-from sqlalchemy import func
 from Qubo_Matrix import qubo_Matrix
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.linear_model import LogisticRegression
