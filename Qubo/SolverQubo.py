@@ -1,14 +1,9 @@
 #!/usr/local/bin/python3
-from dwave.system.samplers import DWaveSampler
-from dwave.system import LeapHybridSampler
-from dwave.system.samplers.dwave_sampler import DWaveSampler
-import dwave_networkx as dnx
-import networkx as nx
-import neal
-import time
+
+from script import annealer, hybrid
 import numpy as np 
 import pandas as pd
-from sqlalchemy import func
+
 from Qubo_Matrix import qubo_Matrix
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.linear_model import LogisticRegression
@@ -44,10 +39,16 @@ def qubo_solver(n, dim, alpha, inputData):
     
 def getResult(qubo_array):
     x_tmp = rescaledDataframe(german_credit_data())
-    x = qubo_array.T*x_tmp
-    print(x)
+
+    rows, _ = x_tmp.shape
+    pos = np.where(qubo_array>0)
+    pos = np.asarray(pos)
+    _, column = pos.shape
+    tmp_x = x_tmp[:,pos]
+    x = tmp_x.reshape(rows, column)
     y = vector_V(german_credit_data())
-    sss = StratifiedShuffleSplit(n_splits=1000, test_size=0.5, random_state=0)
+    sss = StratifiedShuffleSplit(n_splits=10000, test_size=0.5, random_state=0)
+
     sss.get_n_splits(x, y)
     for train_index, test_index in sss.split(x, y):
         x_train, x_test = x[train_index], x[test_index]
@@ -62,7 +63,9 @@ data = german_credit_data()
 #tmp = subset_array_generator_per_k(1000,48,24)
 #print(tmp)
 '''ì'''
-pos, qubo_result, f_value = qubo_solver_per_K(100, 48, 24, 0.977, data)
+
+pos, qubo_result, f_value = qubo_solver_per_K(1000, 48, 24, 0.977, data)
 #qubo_solver(1000, 48, 0.977, german_credit_data() )
-#print(result)  
+print(qubo_result, " ", f_value)  
+
 getResult(qubo_result)

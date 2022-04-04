@@ -1,6 +1,5 @@
 #!/usr/local/bin/python3
 from scipy import stats
-from Data_Rescaler import rescaledDataframe, vector_V, german_credit_data
 import numpy as np
 
 def column_Correlation(inputData, v_Vector):
