@@ -14,7 +14,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.linear_model import LogisticRegression
 from Subset_generator import subset_Vector
 from Data_Rescaler import german_credit_data, rescaledDataframe, vector_V
-import random
 
 def subset_array_generator_per_k (n, dim, k):
     subset_array = np.zeros((n, dim))
