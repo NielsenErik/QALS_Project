@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 from scipy import stats
 import numpy as np
+import random
 
 def column_Correlation(inputData, v_Vector):
     
