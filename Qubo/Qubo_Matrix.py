@@ -27,15 +27,17 @@ def qubo_Matrix (alpha, inputData):
                   
     return qubo
 
-'''def test_qubo(alpha, inputData):
+def test_qubo(alpha, inputData):
     #Funzione di test per creare un QUBO matrix
     b = qubo_Matrix(alpha, inputData)
-    a_file = open("matrix_Q.txt", "w")
+    print(b)
+    '''a_file = open("matrix_Q.txt", "w")
     np.savetxt(a_file, b)
-    a_file.close()
+    a_file.close()'''
     
+#test_qubo(0.977, german_credit_data())
     
-def test_qubo_function():
+'''def test_qubo_function():
     #Funzione di test per creare una funzione e trovare il minimo
     print("Computing")
     x = subset_Vector(48, 35)
