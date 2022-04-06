@@ -1,7 +1,9 @@
 #!/usr/local/bin/python3
+
 from script import annealer, hybrid
 import numpy as np 
 import pandas as pd
+
 from Qubo_Matrix import qubo_Matrix
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.linear_model import LogisticRegression
@@ -48,6 +50,7 @@ def RFECV_solver():
     
 def getResultForQubo(qubo_array):
     x_tmp = rescaledDataframe(german_credit_data())
+
     rows, _ = x_tmp.shape
     pos = np.where(qubo_array>0)
     pos = np.asarray(pos)
@@ -56,6 +59,7 @@ def getResultForQubo(qubo_array):
     x = tmp_x.reshape(rows, column)
     y = vector_V(german_credit_data())
     sss = StratifiedShuffleSplit(n_splits=10000, test_size=0.5, random_state=0)
+
     sss.get_n_splits(x, y)
     for train_index, test_index in sss.split(x, y):
         x_train, x_test = x[train_index], x[test_index]
@@ -108,5 +112,4 @@ def print_test_Result():
     print(featureList, " ", resRFE)
     
 print_test_Result()
-
 
