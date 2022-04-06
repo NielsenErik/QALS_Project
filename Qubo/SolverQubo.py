@@ -1,6 +1,5 @@
 #!/usr/local/bin/python3
 
-from script import annealer, hybrid
 import numpy as np 
 import pandas as pd
 
