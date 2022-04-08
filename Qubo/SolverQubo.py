@@ -93,14 +93,14 @@ def getResultRFECV(RFE_array):
 def print_test_Result():
     data = german_credit_data()
     print("QUBO K = 20")
-    qubo_result1, f_value1 = qubo_solver_per_K(100, 48, 20, 0.977, data)
+    qubo_result1, f_value1 = qubo_solver_per_K(10000, 48, 20, 0.977, data)
     print(qubo_result1)
     print(f_value1)  
     getResultForQubo(qubo_result1)
     print(" ")
     print("QUBO K = 24")
     data1 = german_credit_data()
-    qubo_result, f_value = qubo_solver_per_K(100, 48, 24, 0.977, data1)
+    qubo_result, f_value = qubo_solver_per_K(10000, 48, 24, 0.977, data1)
     print(qubo_result)
     print(f_value)  
     getResultForQubo(qubo_result)
@@ -108,7 +108,26 @@ def print_test_Result():
     print("RFECV")
     featureList = RFECV_solver()
     resRFE = getResultRFECV(featureList)
-    print(featureList, " ", resRFE)
+    print(featureList)
+    print(resRFE)
     
-print_test_Result()
+
+def print_test_ResultFor(start, end):
+    data = german_credit_data()
+    
+    for i in range(start, end):    
+        print("QUBO K = ", i)
+        qubo_result, f_value = qubo_solver_per_K(100, 48, i, 0.977, german_credit_data())
+        print(qubo_result)
+        print(f_value)  
+        getResultForQubo(qubo_result)
+        print(" ")
+    
+    print("RFECV")
+    featureList = RFECV_solver()
+    resRFE = getResultRFECV(featureList)
+    print(featureList)
+    print(resRFE)
+    
+print_test_ResultFor(20,28)
 
