@@ -129,5 +129,5 @@ def print_test_ResultFor(start, end):
     print(featureList)
     print(resRFE)
     
-print_test_ResultFor(20,28)
+#print_test_ResultFor(20,28)
 
