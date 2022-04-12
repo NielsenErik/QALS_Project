@@ -4,6 +4,7 @@ import dimod
 import numpy as np 
 import pandas as pd
 import dimod
+from sqlalchemy import false, true
 from SolverQubo import getResultForQubo
 
 from Qubo_Matrix import qubo_Matrix
@@ -12,6 +13,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFECV
 from Subset_generator import subset_Vector
 from Data_Rescaler import german_credit_data, rescaledDataframe, vector_V
+import neal
 import dwave_networkx as dnx
 import networkx as nx
 from dwave.system.samplers import DWaveSampler
@@ -20,7 +22,8 @@ from dwave.system.composites import EmbeddingComposite
 def annealer(qubo, sampler, k=1):
     #qubo = get_Q, sampler = sampler dWave, k = number of reads in sample_qubo
     response = sampler.sample_qubo(qubo, num_reads = k)
-    print(response)
+    csv_report = response.to_pandas_dataframe()
+    csv_report.to_csv("annealer.csv")
     return list(response.first.sample.values())
 
 def qubo_function (x, Q):
@@ -35,21 +38,26 @@ def subset_array_generator_per_k (n, dim, k):
 
 def generate_pegasus(n):
     #n = number of nodes in pegasus graph
+    print("Generating Pegasus Graph")
     P = dnx.pegasus_graph(16)
     tmp = nx.to_numpy_matrix(P)
     
-    graph = np.zeros((n, n))
+    rows = []
+    columns = []
+           
     for i in range(n):
-        graph.append((i, i))
-        
-        for j in range (n):
+        rows.append(i)
+        columns.append(i)
+        for j in range(n):
             if(tmp.item(i,j)):
-                graph.append((i,j))
-    
-    return graph
+                rows.append(i)
+                columns.append(j)
+      
+    return list(zip(rows, columns))
 
 def get_Nodes(sampler, n):
     #sampler = Dwave_Sampler, n = number of nodes
+    print("Getting Qubits and Couplers from Dwave")
     nodes = dict()
     tmp = list(sampler.nodelist)
     nodelist = list()
@@ -72,22 +80,29 @@ def get_Nodes(sampler, n):
     
     return nodes
 
-def get_Q(q, A):
+def get_Q(q, A, simulation = true):
     #Function to map Q basing on Dwave topology A,
-    #q = qubo_matrix, A  = get_nodes(...)
+    #q = qubo_matrix in numpy, A  = get_nodes(...)
     n = len(q)
     Q = dict()
-    support = dict(zip(A.keys(), np.arange(n)))
-    for i in list(A.keys()):
-        k = support[i]
-        Q[i, i] = q[k][k]
-        for j in A[i]:
-            l = support[j]
-            Q[i,j] = q[k][l]
+    if(simulation == false):
+        print("Mapping QUBO on Dwave's qubit")
+        support = dict(zip(A.keys(), np.arange(n)))
+        for i in list(A.keys()):
+            k = support[i]
+            Q[i, i] = q[k][k]
+            for j in A[i]:
+                l = support[j]
+                Q[i,j] = q[k][l]
+    else:
+        print("Mapping QUBO on Simulation")
+        for rows, columns in A:
+            Q[rows, columns] = q[rows][columns]
     
     return Q    
 
 def getResultForQubo(qubo_array):
+    print("Getting accuracy score from previuos results")
     x_tmp = rescaledDataframe(german_credit_data())
 
     rows, _ = x_tmp.shape
@@ -111,26 +126,27 @@ def getResultForQubo(qubo_array):
     score = logReg.score(x_test, y_test)
     return score
 
-def solve(n, Q, number_iteration, k = 1):
-    #n = dimension of problem
-    sampler = DWaveSampler({'topology__type':'pegasus'})
-    A = get_Nodes(sampler, n)   
+def solve(n, Q, number_iteration, k = 1, simulation = true):
+    #n = dimension of problem, Q = qubo numpy Matrix, k = number of reads
+    #in the annealer, simulation = simulate or run dwave
     
-    qubo = get_Q(Q, A)
+    if(simulation == false):
+        print("Running Dwave")
+        sampler = DWaveSampler({'topology__type':'pegasus'})
+        A = get_Nodes(sampler, n)   
+    else:
+        print("Running simulation")
+        sampler = neal.SimulatedAnnealingSampler()
+        A = generate_pegasus(n)
+        
+    qubo = get_Q(Q, A, simulation)
+    
     f = np.zeros(number_iteration)
     x = np.zeros((number_iteration, len(Q)))
-    x = annealer(qubo, sampler, k)
     for i in range(number_iteration):
-        x[i] = annealer(qubo, sampler, 1)
+        x[i] = annealer(qubo, sampler, k)
         x[i] = np.asarray(x[i])
         f[i] = qubo_function(x[i], Q)
-        
-    '''k = np.zeros((number_iteration, len(Q)))   
-    for i in range(number_iteration):
-        
-        k[i] = np.where(x[i]>0)
-        k[i] = np.asarray(k)
-        print(k[i].shape)'''
     res = np.argmin(f)
     print(f[res])
     print(x[res])
@@ -141,5 +157,5 @@ data = german_credit_data()
 qubo = qubo_Matrix(0.977, data)
 
 
-qubo_array=solve(48, qubo, 10, 1)
+qubo_array=solve(48, qubo, 1, 1000, simulation=false)
 getResultForQubo(qubo_array)
