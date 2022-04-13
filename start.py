@@ -17,16 +17,24 @@ from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 
 def ask_for_simulation():
-    print("Would you like to trya a simulation or run Dwave?")
-    simulation = input("[y] for simulation [n] for dwave: ")
+    #This function ask if it is wanted a simulation
+    #or real usage touser before send the problem
+    print("Would you like to try a simulation or run Dwave?")    
     sim = True
-    if(simulation == 'y'):
-        sim = True
-    elif(simulation == 'n'):
-        sim = False
-    else:
-        print("Wrong answer, terminating program...")
-        exit()
+    check = False
+    while(check == False):
+        simulation = input("[s] for simulation [d] for dwave [e] for exit program: ")
+        if(simulation == 's'):
+            sim = True
+            check = True
+        elif(simulation == 'd'):
+            sim = False
+            check = True
+        elif(simulation == 'e'):
+            print("Terminating program...")
+            exit()
+        else:
+            print("Wrong answer, try again!")
     return sim
 
 def main():
