@@ -1,12 +1,10 @@
 #!/usr/local/bin/python3
 
 import dimod
-import numpy as np 
+import numpy as np
 import pandas as pd
-import dimod
 from sqlalchemy import false, true
 from SolverQubo import getResultForQubo
-from sklearn.metrics import mean_squared_error
 
 from Qubo_Matrix import qubo_Matrix
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -42,10 +40,10 @@ def generate_pegasus(n):
     print("Generating Pegasus Graph")
     P = dnx.pegasus_graph(16)
     tmp = nx.to_numpy_matrix(P)
-    
+
     rows = []
     columns = []
-           
+
     for i in range(n):
         rows.append(i)
         columns.append(i)
@@ -53,7 +51,7 @@ def generate_pegasus(n):
             if(tmp.item(i,j)):
                 rows.append(i)
                 columns.append(j)
-      
+
     return list(zip(rows, columns))
 
 def get_Nodes(sampler, n):
@@ -62,23 +60,23 @@ def get_Nodes(sampler, n):
     nodes = dict()
     tmp = list(sampler.nodelist)
     nodelist = list()
-    
+
     for i in range(n):
         nodelist.append(tmp[i])
-    
+
     for i in nodelist:
         nodes[i] = list()
-        
+
     for nodeA , nodeB in sampler.edgelist:
         if (nodeA in nodelist and nodeB in nodelist):
             nodes[nodeA].append(nodeB)
             nodes[nodeB].append(nodeA)
-    
+
     if(len(nodes) != n):
         i = 1
         while(len(nodes) != n):
             nodes[tmp[n+i]] = list()
-    
+
     return nodes
 
 def get_Q(q, A, simulation = true):
@@ -99,8 +97,8 @@ def get_Q(q, A, simulation = true):
         print("Mapping QUBO on Simulation")
         for rows, columns in A:
             Q[rows, columns] = q[rows][columns]
-    
-    return Q    
+
+    return Q
 
 def getResultForQubo(qubo_array):
     print("Getting accuracy score from previuos results")
@@ -120,29 +118,29 @@ def getResultForQubo(qubo_array):
     for train_index, test_index in sss.split(x, y):
         x_train, x_test = x[train_index], x[test_index]
         y_train, y_test = y[train_index], y[test_index]
-        
+
     logReg = LogisticRegression(random_state=0).fit(x_train, y_train)
     #print(logReg.predict(x_test))
     print(logReg.score(x_test, y_test))
     score = logReg.score(x_test, y_test)
-    
+
     return score
 
 def solve(n, Q, number_iteration, k = 1, simulation = true):
     #n = dimension of problem, Q = qubo numpy Matrix, k = number of reads
     #in the annealer, simulation = simulate or run dwave
-    
+
     if(simulation == false):
         print("Running Dwave")
         sampler = DWaveSampler({'topology__type':'pegasus'})
-        A = get_Nodes(sampler, n)   
+        A = get_Nodes(sampler, n)
     else:
         print("Running simulation")
         sampler = neal.SimulatedAnnealingSampler()
         A = generate_pegasus(n)
-        
+
     qubo = get_Q(Q, A, simulation)
-    
+
     f = np.zeros(number_iteration)
     x = np.zeros((number_iteration, len(Q)))
     for i in range(number_iteration):
@@ -152,7 +150,7 @@ def solve(n, Q, number_iteration, k = 1, simulation = true):
     res = np.argmin(f)
     print(f[res])
     print(x[res])
-    
+
     return x[res]
 
 data = german_credit_data()
