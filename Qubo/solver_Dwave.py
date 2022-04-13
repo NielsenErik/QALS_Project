@@ -6,6 +6,7 @@ import pandas as pd
 import dimod
 from sqlalchemy import false, true
 from SolverQubo import getResultForQubo
+from sklearn.metrics import mean_squared_error
 
 from Qubo_Matrix import qubo_Matrix
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -124,6 +125,7 @@ def getResultForQubo(qubo_array):
     #print(logReg.predict(x_test))
     print(logReg.score(x_test, y_test))
     score = logReg.score(x_test, y_test)
+    
     return score
 
 def solve(n, Q, number_iteration, k = 1, simulation = true):
@@ -157,5 +159,5 @@ data = german_credit_data()
 qubo = qubo_Matrix(0.977, data)
 
 
-qubo_array=solve(48, qubo, 1, 1000, simulation=false)
+qubo_array=solve(48, qubo, 1, 1000, simulation=true)
 getResultForQubo(qubo_array)
