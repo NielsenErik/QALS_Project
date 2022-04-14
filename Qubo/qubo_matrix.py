@@ -22,12 +22,12 @@ def column_Correlation(inputData, v_Vector):
     for i in range(columns):
         x = np.asarray(inputData[:,i].astype(float))
         tmpVect, tmp= stats.spearmanr(x,v)
-        corrColumnsV[i] = tmpVect    
+        corrColumnsV[i] = tmpVect
         for j in range(columns):            
             y = np.asarray(inputData[:,j].astype(float))
             tmpMatrix , tmp = stats.spearmanr(x,y)  
             corrColumnsMatrix[i,j] = tmpMatrix
-            
+    
     return corrColumnsV, corrColumnsMatrix
 
 def qubo_Matrix (alpha, inputMatrix, inputVector):
@@ -37,19 +37,16 @@ def qubo_Matrix (alpha, inputMatrix, inputVector):
     ''' this function is to generate Q matrix for the qubo problem'''
     
     '''Data preprocessing and correlation matrix and vector'''
-    
+ 
     rho_vector_V, rho_column = column_Correlation(inputMatrix, inputVector)
-    
     '''Qubo initiaization and creation'''
-    
     dim = len(rho_vector_V)
     qubo = np.zeros((dim,dim))
     for i in range(dim):
-        qubo[i,i] = alpha*rho_vector_V[i]  
+        qubo[i,i] = alpha*rho_vector_V[i]
         for j in range(dim):
             if(j != i):
-                qubo[i,j] = -(1-alpha)*rho_column[i,j]
-                  
+                qubo[i,j] = -(1-alpha)*rho_column[i,j]   
     return qubo
 
 '''data = german_credit_data()

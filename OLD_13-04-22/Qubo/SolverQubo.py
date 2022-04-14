@@ -116,8 +116,8 @@ def print_test_ResultFor(start, end):
     data = german_credit_data()
     
     for i in range(start, end):    
-        print("QUBO K = ", i)
-        qubo_result, f_value = qubo_solver_per_K(100, 48, i, 0.977, german_credit_data())
+        print("QUBO K = ", i+1)
+        qubo_result, f_value = qubo_solver_per_K(1000, 48, i, 0.977, german_credit_data())
         print(qubo_result)
         print(f_value)  
         getResultForQubo(qubo_result)
@@ -129,5 +129,5 @@ def print_test_ResultFor(start, end):
     print(featureList)
     print(resRFE)
     
-#print_test_ResultFor(20,28)
+print_test_ResultFor(22,25)
 

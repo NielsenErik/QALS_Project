@@ -58,7 +58,7 @@ def main():
     inputVector = vector_V(data)
     alpha = 0.977
     
-    qubo_array= QUBOsolver(48, alpha, inputMatrix, inputVector, 1 , 10 ,simulation = sim)
+    qubo_array= QUBOsolver(48, alpha, inputMatrix, inputVector, 1 , 100 ,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False)

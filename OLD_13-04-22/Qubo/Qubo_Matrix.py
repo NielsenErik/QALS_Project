@@ -20,9 +20,9 @@ def qubo_Matrix (alpha, inputData):
     for i in range(dim):
         for j in range(dim):
             if(j != i):
-                qubo[i,j] = -(1-alpha)*rho_column[i,j]
+                qubo[i,j] = -(1-alpha)*abs(rho_column[i,j])
             else:
-                qubo[i,j] = alpha*rho_vector_V[i]  
+                qubo[i,j] = alpha*abs(rho_vector_V[i])  
                   
     return qubo
 
