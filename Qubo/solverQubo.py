@@ -47,4 +47,5 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, number_iteration, k = 1, simu
         f[i] = qubo_function(x[i], Q_matrix)
     res = np.argmin(f)
     numerical_x = np.asarray(np.where(x[res]>0))
+    print(numerical_x)
     return numerical_x
