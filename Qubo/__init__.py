@@ -7,3 +7,4 @@ from Qubo.qubo_matrix import qubo_Matrix
 from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
+from Qubo.colors import colors

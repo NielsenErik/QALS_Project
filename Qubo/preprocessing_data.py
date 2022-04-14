@@ -2,8 +2,10 @@
 
 import pandas as pd
 from sklearn import preprocessing
+
 '''This preprocessing methods works only with german credit
 data, the steps used are explained in the paper'''
+
 def binarizingWGetDummies (inputData):
     #inputData = german_credi_data()
     '''Column in need to be bynarized: 1,3,4,6,7,9,10,12,14,15,17'''
