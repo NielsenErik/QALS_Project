@@ -15,7 +15,7 @@ def qubo_function (x, Q):
     f = np.matmul(np.matmul(-x, Q), x.T)
     return f
 
-def QUBOsolver(n, alpha, inputMatrix, inputVector, number_iteration, k = 1, simulation = True):
+def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     #n = dimension of problem, Q = qubo numpy Matrix, k = number of reads
     #in the annealer, simulation = simulate or run dwave
     #alpha = weighting needed in the QUBO formulation
@@ -36,16 +36,11 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, number_iteration, k = 1, simu
         A = generate_pegasus(n)
 
     qubo = get_Q(Q_matrix, A, simulation)
-
-    f = np.zeros(number_iteration)
-    x = np.zeros((number_iteration, len(Q_matrix)))
+    
     print("Running annealer")
-    for i in range(number_iteration):
-        x[i] = annealer(qubo, sampler, k)
-        print("Done with annealer measure: ", i+1)
-        x[i] = np.asarray(x[i])
-        f[i] = qubo_function(x[i], Q_matrix)
-    res = np.argmin(f)
-    numerical_x = np.asarray(np.where(x[res]>0))
-    print(numerical_x)
+    x = annealer(qubo, sampler, k)
+    print("Done with annealer")
+    x = np.asarray(x)
+    f= qubo_function(x, Q_matrix)
+    numerical_x = np.asarray(np.where(x>0))
     return numerical_x

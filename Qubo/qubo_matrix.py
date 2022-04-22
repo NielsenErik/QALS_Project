@@ -27,6 +27,9 @@ def column_Correlation(inputData, v_Vector):
             y = np.asarray(inputData[:,j].astype(float))
             tmpMatrix , tmp = stats.spearmanr(x,y)  
             corrColumnsMatrix[i,j] = tmpMatrix
+            corrColumnsMatrix[j,i] = tmpMatrix
+    #corrColumnsV = np.absolute(corrColumnsV)
+    #corrColumnsMatrix = np.absolute(corrColumnsMatrix)      
     
     return corrColumnsV, corrColumnsMatrix
 
@@ -46,13 +49,5 @@ def qubo_Matrix (alpha, inputMatrix, inputVector):
         qubo[i,i] = alpha*rho_vector_V[i]
         for j in range(dim):
             if(j != i):
-                qubo[i,j] = -(1-alpha)*rho_column[i,j]   
+                qubo[i,j] = -(1-alpha)*rho_column[i,j]
     return qubo
-
-'''data = german_credit_data()
-matrix = rescaledDataframe(data)
-vector = vector_V(data)
-
-qubo = qubo_Matrix(0.3, matrix, vector)
-print(qubo)
-print(qubo.shape)'''
