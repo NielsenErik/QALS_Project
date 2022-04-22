@@ -20,9 +20,9 @@ def bestRandomSubset(start,dim, n_arrays, inputMatrix, inputVector):
         print("Done dim: ", i)
     tot_pos = np.argmax(best_scores)
     tot_best_score = best_scores[tot_pos]
-    tot_best_sub = best_sub[tot_pos]
-    tmp = np.where(tot_best_sub>0)
-    tot_best_len = len(tmp[0])
+    tmp = best_sub[tot_pos]
+    tot_best_sub = np.asarray(np.where(tmp>0))
+    tot_best_len = len(tot_best_sub[0])
     
     print(tot_best_score, " ", tot_best_len)
     
