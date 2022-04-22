@@ -10,8 +10,8 @@ def annealer(qubo, sampler, k=1):
     #this function is activating the annealer and getting the results, 
     #works both with D-Wave and with simulation
     response = sampler.sample_qubo(qubo, num_reads = k)
-    csv_report = response.to_pandas_dataframe()
-    csv_report.to_csv("annealer.csv")
+    '''csv_report = response.to_pandas_dataframe()
+    csv_report.to_csv("annealer.csv")'''
     return list(response.first.sample.values())
 
 def generate_pegasus(n):
