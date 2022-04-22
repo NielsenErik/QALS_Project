@@ -18,6 +18,7 @@ from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 from Qubo.solverRandom_Max import bestRandomSubset
+from Qubo.noisy_data import genearate_noisy_data
 
 def header_script():
     #just the title and headar that appear on terminal
@@ -81,7 +82,7 @@ def printStartInfos(alpha, dataName, fileDescriptor, simulation = True):
          fileDescriptor.write("This result are from simulation")
     else:
         fileDescriptor.write("This result are from Dwave QPU")
-    tmp = "Data used are: " + str(dataName) + "\n"
+    tmp = "\nData used are: " + str(dataName) + "\n"
     fileDescriptor.write(tmp)
     tmp = "Alpha value used is: " + str(alpha) + "\n\n"
     fileDescriptor.write(tmp)
@@ -137,6 +138,8 @@ def main():
     if(random_max == True):
         print(colors.RESULT,"Random Max = ", scoreRandom, " Feature number = ", feature_nRandom, colors.ENDC)
     print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)
+    
+    
     
     
 
