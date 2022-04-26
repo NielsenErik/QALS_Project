@@ -65,23 +65,24 @@ def ask_for_simulation():
             print(colors.FAIL, "Wrong answer, try again!", colors.ENDC)
     return sim, random_max
 
-def outputTxt(fileName):
+def outputTxt(fileName, simulation = True):
     f = open(fileName, 'a')
     f.write("\n")
     now = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     f.write(now)
     f.write("\n")
+    if(simulation == True):
+         f.write("This result are from simulation")
+    else:
+        f.write("This result are from Dwave QPU")
     return f
 
-def printStartInfos(alpha, dataName, fileDescriptor, simulation = True):
+def printStartInfos(alpha, dataName, fileDescriptor):
     #aplha = alpha parameter
     #dataName = name of data used
     #fileDescriptor = call file descriptor used in outputTxt
     #simulatioN = if is simulation or Dwave usage
-    if(simulation == True):
-         fileDescriptor.write("This result are from simulation")
-    else:
-        fileDescriptor.write("This result are from Dwave QPU")
+
     tmp = "\nData used are: " + str(dataName) + "\n"
     fileDescriptor.write(tmp)
     tmp = "Alpha value used is: " + str(alpha) + "\n\n"
@@ -108,17 +109,23 @@ def printResults(fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfec
 
 def main():
     #main function of the program
-    fileOutput = 'outPut.txt'
-    fd = outputTxt(fileOutput)
+    
     header_script()
     
     sim, random_max = ask_for_simulation()
+    fileOutput = 'outPut.txt'
+    fd = outputTxt(fileOutput, sim)
     data, data_name = german_credit_data()
     inputMatrix = rescaledDataframe(data)
     inputVector = vector_V(data)
     alpha = 0.977
     
-    printStartInfos(alpha, data_name, fd, sim)
+    #Generate noisy data
+    
+    noisy_matrix, noisy_vector, noisy_data_name = genearate_noisy_data(inputMatrix, inputVector, 0.05, 48, data_name)
+    
+   
+    printStartInfos(alpha, data_name, fd)
     
     scoreRandom = -1
     feature_nRandom = -1
@@ -129,7 +136,16 @@ def main():
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True, isRFECV=False)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False, isRFECV=True)
     if(random_max == True):
-        scoreRandom, feature_nRandom, randomSub = bestRandomSubset(40, 48, 1, inputMatrix, inputVector)
+        scoreRandom, feature_nRandom, randomSub = bestRandomSubset(20, 48, 100, inputMatrix, inputVector)
+    
+    #noisy results
+    
+    qubo_array_noisy = QUBOsolver(48, alpha, noisy_matrix, noisy_vector, 10,simulation = sim) 
+    rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
+    
+    noisy_scoreQubo, noisy_feature_nQ = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
+    noisy_scoreRfecv, noisy_feature_nR = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
+    
     printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, scoreRand = scoreRandom, feature_nRand = feature_nRandom, randSub = randomSub)
     
     print(colors.BOLD, colors.HEADER, "RESULTS", colors.ENDC)
@@ -137,6 +153,10 @@ def main():
     print("RFECV = ", scoreRfecv, " Feature number = ", feature_nR, colors.ENDC)
     if(random_max == True):
         print(colors.RESULT,"Random Max = ", scoreRandom, " Feature number = ", feature_nRandom, colors.ENDC)
+    print(colors.BOLD, colors.HEADER, "RESULTS with NOISE", colors.ENDC)
+    
+    print(colors.RESULT, " QUBO = ", noisy_scoreQubo, " Feature number = ", noisy_feature_nQ)
+    print("RFECV = ", noisy_scoreRfecv, " Feature number = ", noisy_feature_nR, colors.ENDC)
     print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)
     
     
