@@ -8,6 +8,7 @@ import networkx as nx
 import neal
 import datetime
 import sys
+import numpy as np
 
 from sympy import ask
 from Qubo.german_credit_data import german_credit_data
@@ -67,7 +68,7 @@ def ask_for_simulation():
 
 def outputTxt(fileName, simulation = True):
     f = open(fileName, 'a')
-    f.write("\n")
+    f.write("###########################################################################\n")
     now = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     f.write(now)
     f.write("\n")
@@ -105,7 +106,20 @@ def printResults(fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfec
     if(scoreRand != -1):
         tmp = "Random accuracy score = " + str(scoreRand) + " with number of feature = " + str(feature_nRand) + "\n\n"
         fileDescriptor.write(tmp)
-    
+
+def printResults_w_Noise(noise, fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfecv, nf_qubo, nf_efecv):
+    #fileDescriptor = call file descriptor used in outputTxt
+    tmp = "Results with Noise '%' = " + str(noise) +"%\n\n"
+    fileDescriptor.write(tmp)
+    tmp = "QUBO features are: " + str(qubo_array) + "\n"
+    fileDescriptor.write(tmp)
+    tmp = "RFECV features are: " + str(rfecv_array) + "\n\n"
+    fileDescriptor.write(tmp)
+    tmp = "QUBO accuracy score = " + str(score_qubo) + " with number of feature = " + str(nf_qubo) + "\n\n"
+    fileDescriptor.write(tmp)  
+    tmp = "RFECVaccuracy score = " + str(score_rfecv) + " with number of feature = " + str(nf_efecv) + "\n\n"
+    fileDescriptor.write(tmp)       
+   
 
 def main():
     #main function of the program
@@ -138,26 +152,43 @@ def main():
     if(random_max == True):
         scoreRandom, feature_nRandom, randomSub = bestRandomSubset(20, 48, 100, inputMatrix, inputVector)
     
+    printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, scoreRand = scoreRandom, feature_nRand = feature_nRandom, randSub = randomSub)
+    fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     #noisy results
     
-    qubo_array_noisy = QUBOsolver(48, alpha, noisy_matrix, noisy_vector, 10,simulation = sim) 
-    rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
+    noisy_steps = 3
+
+    noisy_scoreQubo = np.zeros(noisy_steps)
+    noisy_scoreRfecv = np.zeros(noisy_steps)
+    noisy_feature_nQ = np.zeros(noisy_steps)
+    noisy_feature_nR = np.zeros(noisy_steps)
     
-    noisy_scoreQubo, noisy_feature_nQ = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
-    noisy_scoreRfecv, noisy_feature_nR = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
+    for i in range(noisy_steps):
+        percentage_step = (i+1)*0.01
+        noisy_matrix, noisy_vector, noisy_data_name = genearate_noisy_data(inputMatrix, inputVector, percentage_step, 48, data_name)
+        qubo_array_noisy = QUBOsolver(48, alpha, noisy_matrix, noisy_vector, 10,simulation = sim) 
+        rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
     
-    printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, scoreRand = scoreRandom, feature_nRand = feature_nRandom, randSub = randomSub)
+        noisy_scoreQubo[i], noisy_feature_nQ[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
+        noisy_scoreRfecv[i], noisy_feature_nR[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
+        printResults_w_Noise(i+1, fd, qubo_array, rfecv_array, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i])
+    fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
+    
     
     print(colors.BOLD, colors.HEADER, "RESULTS", colors.ENDC)
-    print(colors.RESULT, " QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
+    print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     print("RFECV = ", scoreRfecv, " Feature number = ", feature_nR, colors.ENDC)
     if(random_max == True):
         print(colors.RESULT,"Random Max = ", scoreRandom, " Feature number = ", feature_nRandom, colors.ENDC)
+        
     print(colors.BOLD, colors.HEADER, "RESULTS with NOISE", colors.ENDC)
     
-    print(colors.RESULT, " QUBO = ", noisy_scoreQubo, " Feature number = ", noisy_feature_nQ)
-    print("RFECV = ", noisy_scoreRfecv, " Feature number = ", noisy_feature_nR, colors.ENDC)
-    print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)
+    for i in range(noisy_steps):
+        print(colors.BOLD, colors.HEADER, "Noise % = ", i+1, "% ", colors.ENDC)
+        print(colors.RESULT, "QUBO = ", noisy_scoreQubo[i], " Feature number = ", noisy_feature_nQ[i])
+        print("RFECV = ", noisy_scoreRfecv[i], " Feature number = ", noisy_feature_nR[i], colors.ENDC)
+        print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)
+        
     
     
     

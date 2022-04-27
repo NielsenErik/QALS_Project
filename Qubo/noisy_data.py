@@ -17,9 +17,4 @@ def genearate_noisy_data(inputMatrix, inputVector, noise_dim_percent, dim, input
             new_array[j] = inputMatrix[random_index][j]
         noise = np.vstack([noise, new_array])
         noisy_vector = np.append(noisy_vector, random_binary)
-    print(noisy_vector)
     return noise, noisy_vector, data_name
-
-'''data = german_credit_data()
-matrix = rescaledDataframe(data)
-genearate_noisy_data(matrix, 5, 48)'''
