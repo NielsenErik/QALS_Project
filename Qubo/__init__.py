@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3
 
 from Qubo.graphs_for_dwave import generate_pegasus, get_Nodes, get_Q
-from Qubo.german_credit_data import german_credit_data
-from Qubo.preprocessing_data import rescaledDataframe, vector_V
+from Qubo.import_data import german_credit_data, australian_credit_data
+from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian
 from Qubo.qubo_matrix import qubo_Matrix
 from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver

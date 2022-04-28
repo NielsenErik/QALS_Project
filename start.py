@@ -11,8 +11,8 @@ import sys
 import numpy as np
 
 from sympy import ask
-from Qubo.german_credit_data import german_credit_data
-from Qubo.preprocessing_data import rescaledDataframe, vector_V
+from Qubo.import_data import german_credit_data, australian_credit_data
+from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian
 
 from Qubo.colors import colors
 from Qubo.solverQubo import QUBOsolver
@@ -69,7 +69,7 @@ def ask_for_simulation():
 def outputTxt(fileName, simulation = True):
     f = open(fileName, 'a')
     f.write("###########################################################################\n")
-    now = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+    now = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
     f.write(now)
     f.write("\n")
     if(simulation == True):
@@ -129,28 +129,36 @@ def main():
     sim, random_max = ask_for_simulation()
     fileOutput = 'outPut.txt'
     fd = outputTxt(fileOutput, sim)
+    
     data, data_name = german_credit_data()
-    inputMatrix = rescaledDataframe(data)
-    inputVector = vector_V(data)
+    inputMatrix, matrix_Len = rescaledDataframe_German(data)
+    inputVector = vector_V_German(data)
     alpha = 0.977
     
-    #Generate noisy data
-    
-    noisy_matrix, noisy_vector, noisy_data_name = genearate_noisy_data(inputMatrix, inputVector, 0.05, 48, data_name)
-    
-   
+    '''
+    data, data_name = polish_bankrupcy_data()
+    inputMatrix = normalizing_Polish(data)
+    inputVector = vector_V_Polish(data)
+    alpha = 0.977
+    '''
+    '''
+    data, data_name = australian_credit_data()
+    inputMatrix, matrix_Len = rescaledDataframe_Australian(data)
+    inputVector = vector_V_Australian(data)
+    alpha = 0.4
+    '''
     printStartInfos(alpha, data_name, fd)
     
     scoreRandom = -1
     feature_nRandom = -1
     randomSub = -1
     
-    qubo_array= QUBOsolver(48, alpha, inputMatrix, inputVector, 10,simulation = sim)
+    qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, 10,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True, isRFECV=False)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False, isRFECV=True)
     if(random_max == True):
-        scoreRandom, feature_nRandom, randomSub = bestRandomSubset(20, 48, 100, inputMatrix, inputVector)
+        scoreRandom, feature_nRandom, randomSub = bestRandomSubset(20, matrix_Len, 100, inputMatrix, inputVector)
     
     printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, scoreRand = scoreRandom, feature_nRand = feature_nRandom, randSub = randomSub)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
@@ -165,8 +173,8 @@ def main():
     
     for i in range(noisy_steps):
         percentage_step = (i+1)*0.01
-        noisy_matrix, noisy_vector, noisy_data_name = genearate_noisy_data(inputMatrix, inputVector, percentage_step, 48, data_name)
-        qubo_array_noisy = QUBOsolver(48, alpha, noisy_matrix, noisy_vector, 10,simulation = sim) 
+        noisy_matrix, noisy_vector, noisy_data_name = genearate_noisy_data(inputMatrix, inputVector, percentage_step, matrix_Len, data_name)
+        qubo_array_noisy = QUBOsolver(matrix_Len, alpha, noisy_matrix, noisy_vector, 10,simulation = sim) 
         rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
     
         noisy_scoreQubo[i], noisy_feature_nQ[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)

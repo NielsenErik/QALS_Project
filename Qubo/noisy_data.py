@@ -1,7 +1,5 @@
 import numpy as np
 import random
-from .german_credit_data import german_credit_data
-from .preprocessing_data import rescaledDataframe
 
 def genearate_noisy_data(inputMatrix, inputVector, noise_dim_percent, dim, input_data_name):
     data_name = "Noisy Data from " + input_data_name

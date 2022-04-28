@@ -11,8 +11,8 @@ import sys
 import numpy as np
 
 from sympy import ask
-from Qubo.german_credit_data import german_credit_data
-from Qubo.preprocessing_data import rescaledDataframe, vector_V
+from Qubo.import_data import german_credit_data
+from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German
 
 from Qubo.colors import colors
 from Qubo.solverQubo import QUBOsolver
@@ -23,8 +23,8 @@ from Qubo.noisy_data import genearate_noisy_data
 
 def main():
     data, data_name = german_credit_data()
-    inputMatrix = rescaledDataframe(data)
-    inputVector = vector_V(data)
+    inputMatrix = rescaledDataframe_German(data)
+    inputVector = vector_V_German(data)
     noise, noisy_vector = genearate_noisy_data(inputMatrix, inputVector, 100, 48)
     '''a_file = open("data.txt", "w")
     np.savetxt(a_file, inputMatrix)
