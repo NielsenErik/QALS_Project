@@ -19,18 +19,19 @@ from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 from Qubo.solverRandom_Max import bestRandomSubset
-from Qubo.noisy_data import genearate_noisy_data
+from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature
 
 def main():
     data, data_name = german_credit_data()
     inputMatrix = rescaledDataframe_German(data)
     inputVector = vector_V_German(data)
-    noise, noisy_vector = genearate_noisy_data(inputMatrix, inputVector, 100, 48)
+    noise, noisy_vector = generate_noisy_data(inputMatrix, inputVector, 1, 48, "ciao")
+    print(noise.shape)
     '''a_file = open("data.txt", "w")
     np.savetxt(a_file, inputMatrix)
     a_file.close()'''
     b_file = open("noisy_data.txt", "w")
-    np.savetxt(b_file, noisy_vector)
+    np.savetxt(b_file, noise)
     b_file.close()
     
     

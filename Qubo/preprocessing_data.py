@@ -82,13 +82,16 @@ def normalizing_Polish (inputData):
     
     
     numData = inputData.iloc[:, :-1]
+    numData = numData.replace('?', 0)
     scaler = preprocessing.StandardScaler().fit(numData)
     scaler.mean_
     scaler.scale_
     tmp = scaler.transform(numData)
     outputData = pd.DataFrame(tmp)
     outputData = outputData.to_numpy()
-    return outputData
+    rows, column = outputData.shape
+    
+    return outputData, column
 
 def vector_V_Polish (inputData):
     #inputData = german_credi_data()

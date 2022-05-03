@@ -41,6 +41,6 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     x = annealer(qubo, sampler, k)
     print("Done with annealer")
     x = np.asarray(x)
-    f= qubo_function(x, Q_matrix)
+    #f= qubo_function(x, Q_matrix)
     numerical_x = np.asarray(np.where(x>0))
     return numerical_x
