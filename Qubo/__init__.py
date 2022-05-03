@@ -8,3 +8,4 @@ from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 from Qubo.colors import colors
+from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector
