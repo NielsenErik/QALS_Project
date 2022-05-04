@@ -98,7 +98,7 @@ def main():
         data, data_name = polish_bankrupcy_data()
         inputMatrix,matrix_Len = normalizing_Polish(data)
         inputVector = vector_V_Polish(data)
-        alpha = 0.977  
+        alpha = 0.1  
     
     elif(answer == 'c'):
         data, data_name = australian_credit_data()

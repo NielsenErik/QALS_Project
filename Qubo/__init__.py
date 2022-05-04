@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-from Qubo.graphs_for_dwave import get_Q
+from Qubo.graphs_for_dwave import get_Q, annealer, generate_pegasus, get_Nodes, get_Theta
 from Qubo.import_data import german_credit_data, australian_credit_data
 from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian
 from Qubo.qubo_matrix import qubo_Matrix

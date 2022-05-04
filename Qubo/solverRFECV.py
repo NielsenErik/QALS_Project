@@ -13,7 +13,7 @@ def RFECV_solver(inputMatrix, inputVector):
     print("Running RFECV")
     x = inputMatrix
     y = inputVector
-    logReg = LogisticRegression()
+    logReg = LogisticRegression(max_iter=2000)
     selector = RFECV(logReg, step = 1, cv = 3)
     selector = selector.fit(x, y)
     indexList = selector.get_support()
