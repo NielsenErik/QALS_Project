@@ -42,12 +42,14 @@ def qubo_Matrix (alpha, inputMatrix, inputVector):
     '''Data preprocessing and correlation matrix and vector'''
  
     rho_vector_V, rho_column = column_Correlation(inputMatrix, inputVector)
+    rho_vector_V = np.absolute(rho_vector_V)
+    rho_column = np.absolute(rho_column)
     '''Qubo initiaization and creation'''
     dim = len(rho_vector_V)
     qubo = np.zeros((dim,dim))
     for i in range(dim):
-        qubo[i,i] = alpha*rho_vector_V[i]
+        qubo[i,i] = -alpha*rho_vector_V[i]
         for j in range(dim):
             if(j != i):
-                qubo[i,j] = -(1-alpha)*rho_column[i,j]
+                qubo[i,j] = (1-alpha)*rho_column[i,j]
     return qubo
