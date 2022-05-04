@@ -3,11 +3,11 @@
 import neal
 import dwave_networkx as dnx
 import networkx as nx
-from dwave.system.samplers import DWaveSampler
+from dwave.system import DWaveSampler, EmbeddingComposite
 import dimod
 import numpy as np
 import pandas as pd
-from .graphs_for_dwave import annealer, generate_pegasus, get_Nodes, get_Q
+from .graphs_for_dwave import annealer, get_Q
 from .qubo_matrix import qubo_Matrix
 
 
@@ -28,14 +28,11 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     Q_matrix = qubo_Matrix(alpha, inputMatrix, inputVector)
     if(simulation == False):
         print("Running Dwave")
-        sampler = DWaveSampler({'topology__type':'pegasus'})
-        A = get_Nodes(sampler, n)
+        sampler = EmbeddingComposite(DWaveSampler({'topology__type':'pegasus'}))
     else:
         print("Running simulation")
         sampler = neal.SimulatedAnnealingSampler()
-        A = generate_pegasus(n)
-
-    qubo = get_Q(Q_matrix, A, simulation)
+    qubo = get_Q(Q_matrix)
     
     print("Running annealer")
     x = annealer(qubo, sampler, k)

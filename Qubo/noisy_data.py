@@ -46,6 +46,6 @@ def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, 
 def noisy_feature_detector(array, dim):
     alert = False
 
-    if(np.any(array>(dim-1))):
+    if(np.any(array>(dim))):
         alert = True
     return alert   
