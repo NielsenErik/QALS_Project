@@ -3,6 +3,7 @@ import numpy as np
 import signal
 import sys
 
+from Qubo.qals import qals_solver
 from Qubo.import_data import german_credit_data, australian_credit_data, polish_bankrupcy_data
 from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian, vector_V_Polish, normalizing_Polish
 from Qubo.colors import colors
@@ -11,6 +12,7 @@ from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector
 from Qubo.print_on_file import printStartInfos, printResults_w_Noisy_samples, printResults_w_Noisy_feature, printResults, outputTxt
+from Qubo.qubo_matrix import qubo_Matrix
 
 def signal_handler(sig, frame):
     print(" ")
@@ -94,13 +96,13 @@ def main():
         inputVector = vector_V_German(data)
         alpha = 0.977
     
-    elif(answer == 'b'):
+    elif(answer == 'c'):
         data, data_name = polish_bankrupcy_data()
         inputMatrix,matrix_Len = normalizing_Polish(data)
         inputVector = vector_V_Polish(data)
-        alpha = 0.977  
+        alpha = 0.9  
     
-    elif(answer == 'c'):
+    elif(answer == 'b'):
         data, data_name = australian_credit_data()
         inputMatrix, matrix_Len = rescaledDataframe_Australian(data)
         inputVector = vector_V_Australian(data)
@@ -176,6 +178,18 @@ def main():
         print(colors.RESULT, "QUBO = ", noisy_scoreQubo_feature[i], " Feature number = ", noisy_feature_nQ_feature[i])
         print("RFECV = ", noisy_scoreRfecv_feature[i], " Feature number = ", noisy_feature_nR_feature[i], colors.ENDC)
         print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)  
+    
+    print("///////////////////////////////////////////////////////////////////////////////")
+    
+    data, data_name = german_credit_data()
+    inputMatrix, matrix_Len = rescaledDataframe_German(data)
+    inputVector = vector_V_German(data)
+    alpha = 0.977    
+    
+    qubo = qubo_Matrix(alpha, inputMatrix, inputVector)        
+
+    z = qals_solver(70, 0.01,100,20,1.5,matrix_Len**2, 10, 100, 0.1, 0.2, 'pegasus', qubo, "Output", sim=False)
+    print(z)
     
 if __name__=='__main__':
     main()
