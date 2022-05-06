@@ -15,7 +15,7 @@ def annealer(qubo, sampler, k=1):
     csv_report.to_csv("annealer.csv")'''
     return list(response.first.sample.values())
 
-def get_Q(q):
+def get_Q(q, simulation = True):
     #q = qubo_matrix in numpy, 
     #if Simulation = False: A  = get_nodes(...)
     #if Simulation = True: A  = generate_pegasus(...)
@@ -24,7 +24,10 @@ def get_Q(q):
     
     n = len(q)
     Q = dict()
-    print("Mapping QUBO on Dwave's qubit")
+    if(simulation == False):
+        print("Mapping QUBO on Dwave's qubit")
+    else:
+        print("Mapping QUBO on Simulation")
     for i in range(n):
         Q[i,i] = q[i][i]
         for j in range(n):
@@ -32,46 +35,60 @@ def get_Q(q):
     return Q
 
 
-def generate_pegasus(n):
-    #n = number of nodes in pegasus graph
-    #This function generate pegasus graph needed
-    #in case of simulation
-    print("Generating Pegasus Graph")
-    P = dnx.pegasus_graph(16)
-    tmp = nx.to_numpy_matrix(P)
-
+def generate_chimera(n):
+    G = dnx.chimera_graph(16)
+    tmp = nx.to_dict_of_lists(G)
     rows = []
-    columns = []
-
+    cols = []
     for i in range(n):
         rows.append(i)
-        columns.append(i)
+        cols.append(i)
+        for j in tmp[i]:
+            if(j < n):
+                rows.append(i)
+                cols.append(j)
+
+    return list(zip(rows, cols))
+
+def generate_pegasus(n):
+    G = dnx.pegasus_graph(16)
+
+    tmp = nx.to_numpy_matrix(G)
+    
+    rows = []
+    cols = []
+           
+    for i in range(n):
+        rows.append(i)
+        cols.append(i)
         for j in range(n):
             if(tmp.item(i,j)):
                 rows.append(i)
-                columns.append(j)
-
-    return list(zip(rows, columns))
+                cols.append(j)
+      
+    return list(zip(rows, cols))
 
 def get_Nodes(sampler, n):
     #sampler = Dwave_Sampler, n = number of nodes
     #This function get the nodes from qubits/couplers 
     #needed in case of D-Wave usage
-    print("Getting Qubits and Couplers from Dwave")
+    print("Getting Qubits and Couplers from Dwave for QALS")
     nodes = dict()
     tmp = list(sampler.nodelist)
     nodelist = list()
-
     for i in range(n):
-        nodelist.append(tmp[i])
+        try:
+            nodelist.append(tmp[i])
+        except IndexError:
+            input(f"Error when reaching {i}-th element of tmp {len(tmp)}") 
 
     for i in nodelist:
         nodes[i] = list()
 
-    for nodeA , nodeB in sampler.edgelist:
-        if (nodeA in nodelist and nodeB in nodelist):
-            nodes[nodeA].append(nodeB)
-            nodes[nodeB].append(nodeA)
+    for node_1, node_2 in sampler.edgelist:
+        if node_1 in nodelist and node_2 in nodelist:
+            nodes[node_1].append(node_2)
+            nodes[node_2].append(node_1)
 
     if(len(nodes) != n):
         i = 1
@@ -79,28 +96,3 @@ def get_Nodes(sampler, n):
             nodes[tmp[n+i]] = list()
 
     return nodes
-
-def get_Theta(q, A, simulation = True):
-    #q = qubo_matrix in numpy, 
-    #if Simulation = False: A  = get_nodes(...)
-    #if Simulation = True: A  = generate_pegasus(...)
-    #this is made to map matrix Q basing on Dwave topology A
-    #has possibility to choose between simulation or real usage
-    
-    n = len(q)
-    theta = dict()
-    if(simulation == False):
-        print("Mapping QUBO on Dwave's qubit")
-        support = dict(zip(A.keys(), np.arange(n)))
-        for i in list(A.keys()):
-            k = support[i]
-            theta[i, i] = q[k][k]
-            for j in A[i]:
-                l = support[j]
-                theta[i,j] = q[k][l]
-    else:
-        print("Mapping QUBO on Simulation")
-        for rows, columns in A:
-            theta[rows, columns] = q[rows][columns]
-
-    return theta

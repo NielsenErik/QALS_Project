@@ -32,7 +32,7 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     else:
         print("Running simulation")
         sampler = neal.SimulatedAnnealingSampler()
-    qubo = get_Q(Q_matrix)
+    qubo = get_Q(Q_matrix, simulation)
     
     print("Running annealer")
     x = annealer(qubo, sampler, k)
