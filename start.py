@@ -188,8 +188,10 @@ def main():
     
     qubo = qubo_Matrix(alpha, inputMatrix, inputVector)        
 
-    z = qals_solver(70, 0.01,100,20,1.5,matrix_Len**2, 10, 100, 0.1, 0.2, 'pegasus', qubo, "Output", sim=False)
+    z = qals_solver(70, 0.01,100,20,1.5,matrix_Len, 10, 100, 0.1, 0.2, 'pegasus', qubo, "Output", sim=sim)
     print(z)
+    scoreQubo, feature_nQ = getAccuracy(z, inputMatrix, inputVector, isQubo= False, isRFECV=True)
+    print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     
 if __name__=='__main__':
     main()
