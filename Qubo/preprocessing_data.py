@@ -3,6 +3,7 @@
 import pandas as pd
 from sklearn import preprocessing
 from sqlalchemy import column
+from .utils import print_step
 
 '''This preprocessing methods works only with german credit
 data, the steps used are explained in the paper'''
@@ -55,7 +56,7 @@ def vector_V_German (inputData):
     #it is the name used in the paper for qubo 
     #formulation
     
-    print("Creating classifying vector of good/bad credit")
+    print_step("Creating classifying vector of good/bad credit")
     
     inputData.loc[inputData["21"]==1, "21"]=0
     inputData.loc[inputData["21"]==2, "21"]=1
@@ -67,7 +68,7 @@ def rescaledDataframe_German (inputData):
     #inputData = german_credi_data()
     #output is
     
-    print("Preprocessing Data")
+    print_step("Preprocessing Data")
     
     catData = binarizingWGetDummies_German(inputData)
     numData = normalizing_German(inputData)
@@ -78,11 +79,11 @@ def rescaledDataframe_German (inputData):
     return outputData, column
 
 def normalizing_Polish (inputData):
-    #inputData = german_credi_data()
+    #inputData = polish_bankruptcy_data()
+    print_step("Preprocessing Data")
     
-    
-    numData = inputData.iloc[:, :-1]
-    numData = numData.replace('?', 0)
+    numData = inputData.iloc[:, :-1]        
+    numData = numData.replace('?',0)
     scaler = preprocessing.StandardScaler().fit(numData)
     scaler.mean_
     scaler.scale_
@@ -99,7 +100,7 @@ def vector_V_Polish (inputData):
     #it is the name used in the paper for qubo 
     #formulation
     
-    print("Creating classifying vector of good/bad credit")
+    print_step("Creating classifying vector of good/bad credit")
     
     vect = inputData.iloc[:,-1]
     v = vect.to_numpy()      
@@ -116,7 +117,7 @@ def binarizingWGetDummies_Australian (inputData):
         
 
 def normalizing_Australian  (inputData):
-    #inputData = german_credi_data()
+    #inputData = australian_credi_data()
     
     '''Column in need to be normalize: 2,5,8,11,13,16,18'''
     numData = inputData[['2','3','7','10','13','14']]
@@ -125,15 +126,14 @@ def normalizing_Australian  (inputData):
     scaler.scale_
     tmp = scaler.transform(numData)
     outputData = pd.DataFrame(tmp)
-    print(len(outputData))
     return outputData
 
 def vector_V_Australian (inputData):
-    #inputData = german_credi_data()
+    #inputData = australian_credi_data()
     #v is the classifying vector of good/bad credit
     #it is the name used in the paper for qubo 
     #formulation
-    print("Creating classifying vector of good/bad credit")
+    print_step("Creating classifying vector of good/bad credit")
     
     vect = inputData.iloc[:,-1]
     v = vect.to_numpy()      
@@ -144,7 +144,7 @@ def rescaledDataframe_Australian (inputData):
     #inputData = german_credi_data()
     #output is
     
-    print("Preprocessing Data")
+    print_step("Preprocessing Data")
     
     catData = binarizingWGetDummies_Australian (inputData)
     numData = normalizing_Australian (inputData)

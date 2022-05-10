@@ -1,27 +1,23 @@
-#!/usr/local/bin/python3
-
-import numpy as np
-from random import SystemRandom
-import neal
-
-from dwave.system import DWaveSampler, EmbeddingComposite
-from .graphs_for_dwave import get_Q, annealer, generate_pegasus, get_Nodes, generate_chimera
-from .qubo_matrix import qubo_Matrix
-from .graphs_for_dwave import get_Nodes, generate_pegasus
-from .colors import colors
-import datetime
+#!/usr/bin/env python3
 import time
-import sys
-import csv
+import numpy as np
+from .graphs_for_dwave import annealer, generate_chimera, generate_pegasus
 from dwave.system.samplers import DWaveSampler
 from dwave.system import LeapHybridSampler
+from .utils import now, csv_write
+import datetime
+import neal
+import sys
+import csv
+from random import SystemRandom
+from .colors import colors
+from dwave.system.composites.embedding import EmbeddingComposite
+from .utils import print_step
 random = SystemRandom()
 np.set_printoptions(linewidth=np.inf,threshold=sys.maxsize)
 
-#These function are from Andrea Bonomi project in QALS, all credits to him and check his work 
-#at his github repo: https://github.com/bonom/Quantum-Annealing-for-solving-QUBO-Problems
 
-def qubo_function (Q, x):
+def function_f(Q, x):
     return np.matmul(np.matmul(x, Q), np.atleast_2d(x).T)
 
 def make_decision(probability):
@@ -90,14 +86,8 @@ def map_back(z, perm):
         z_ret[i] = int(z[inverted[i]])
 
     return z_ret
-
+     
 def g(Q, A, oldperm, p, sim):
-    #Q = qubo matrix
-    #A = graph topology
-    #oldperm = oldpermutation
-    #p = probability
-    #sim = simulation or not
-    
     n = len(Q)
     m = dict()
     for i in range(n):
@@ -127,8 +117,6 @@ def g(Q, A, oldperm, p, sim):
     return Theta, perm
 
 def h(vect, pr):
-    #vect = inputvector
-    #pr = probability
     n = len(vect)
 
     for i in range(n):
@@ -137,14 +125,37 @@ def h(vect, pr):
 
     return vect
 
-def now():
-    return datetime.datetime.now().strftime("%H:%M:%S")
-
 def write(dir, string):
     file = open(dir, 'a')
     file.write(string+'\n')
     file.close()
-    
+
+def get_active(sampler, n):
+    nodes = dict()
+    tmp = list(sampler.nodelist)
+    nodelist = list()
+    for i in range(n):
+        try:
+            nodelist.append(tmp[i])
+        except IndexError:
+            input(f"Error when reaching {i}-th element of tmp {len(tmp)}") 
+
+    for i in nodelist:
+        nodes[i] = list()
+
+    for node_1, node_2 in sampler.edgelist:
+        if node_1 in nodelist and node_2 in nodelist:
+            nodes[node_1].append(node_2)
+            nodes[node_2].append(node_1)
+
+    if(len(nodes) != n):
+        i = 1
+        while(len(nodes) != n):
+            nodes[tmp[n+i]] = list()
+
+    return nodes
+
+
 def counter(vector):
     count = 0
     for i in range(len(vector)):
@@ -153,28 +164,22 @@ def counter(vector):
     
     return count
 
-def csv_write(DIR, l):
-    with open(DIR, 'a') as file:
-        writer = csv.writer(file)
-        writer.writerow(l)
 
-def qals_solver(d_min, eta_prob_dec_rate, i_max_term_parameter, n_reads, lambda_zero, dim_problem, N_it_const_prob, N_max_term_parameter, p_delta, q_perm_probability, topology, qubo, log_DIR, sim):
-    #qubo = qubo matrix
-    #dim = dimension of problem
-    #n_reads = number reads
-    #lambda_zero = lambda_zero
-    #p_delta = delta probability, minimum probability of permutation modification
-    #N = probability decreasing rate
-    #q = candidate perturbation probability 
+
+
+def qals_solver(d_min, eta_prob_dec_rate, i_max, k_n_reads, lambda_zero, dim_problem, N_it_const_prob, N_max, p_delta, q_perm_prob, topology, QUBO, log_DIR, sim):
+    print_step("Starting QALS", "QALS")
     try:
         if (not sim):
             print(now()+" ["+colors.BOLD+colors.OKGREEN+"LOG"+colors.ENDC+"] "+colors.HEADER+"Started Algorithm in Quantum Mode"+colors.ENDC)
             sampler = DWaveSampler({'topology__type':topology})
             print(now()+" ["+colors.BOLD+colors.OKGREEN+"LOG"+colors.ENDC+"] "+colors.HEADER+"Using Pegasus Topology \n"+colors.ENDC)
-            A = get_Nodes(sampler, dim_problem)
+            A = get_active(sampler, dim_problem)
+            log_DIR.replace("TSP_","TSP_QA_")
         else:
             print(now()+" ["+colors.BOLD+colors.OKGREEN+"LOG"+colors.ENDC+"] "+colors.OKCYAN+"Started Algorithm in Simulating Mode"+colors.ENDC)
             sampler = neal.SimulatedAnnealingSampler()
+            log_DIR.replace("TSP_","TSP_SA_")
             if(topology == 'chimera'):
                 print(now()+" ["+colors.BOLD+colors.OKGREEN+"LOG"+colors.ENDC+"] "+colors.OKCYAN+"Using Chimera Topology \n"+colors.ENDC)
                 if(dim_problem > 2048):
@@ -188,20 +193,25 @@ def qals_solver(d_min, eta_prob_dec_rate, i_max_term_parameter, n_reads, lambda_
                 print(now()+" ["+colors.BOLD+colors.OKGREEN+"LOG"+colors.ENDC+"] "+colors.HEADER+"Using Pegasus Topology \n"+colors.ENDC)
                 A = generate_pegasus(dim_problem)
 
-        print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA IN"+colors.ENDC+"] dmin = "+str(d_min)+" - eta = "+str(eta_prob_dec_rate)+" - imax = "+str(i_max_term_parameter)+" - k = "+str(n_reads)+" - lambda 0 = "+str(lambda_zero)+" - n = "+str(dim_problem) + " - N = "+str(N_it_const_prob) + " - Nmax = "+str(N_max_term_parameter)+" - pdelta = "+str(p_delta)+" - q = "+str(q_perm_probability)+"\n")
+        print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA IN"+colors.ENDC+"] dmin = "+str(d_min)+" - eta = "+str(eta_prob_dec_rate)+" - imax = "+str(i_max)+" - k = "+str(k_n_reads)+" - lambda 0 = "+str(lambda_zero)+" - n = "+str(dim_problem) + " - N = "+str(N_it_const_prob) + " - Nmax = "+str(N_max)+" - pdelta = "+str(p_delta)+" - q = "+str(q_perm_prob)+"\n")
         
         I = np.identity(dim_problem)
         p = 1
-        Theta_one, m_one = g(qubo, A, np.arange(dim_problem), p, sim)
-        Theta_two, m_two = g(qubo, A, np.arange(dim_problem), p, sim)
+        Theta_one, m_one = g(QUBO, A, np.arange(dim_problem), p, sim)
+        Theta_two, m_two = g(QUBO, A, np.arange(dim_problem), p, sim)
 
         print(now()+" ["+colors.BOLD+colors.OKGREEN+"ANN"+colors.ENDC+"] Working on z1...", end=' ')
-        
-        z_one = map_back(annealer(Theta_one, sampler, n_reads), m_one)
-        z_two = map_back(annealer(Theta_two, sampler, n_reads), m_two)
+        start = time.time()
+        z_one = map_back(annealer(Theta_one, sampler, k_n_reads), m_one)
+        convert_1 = datetime.timedelta(seconds=(time.time()-start))
+        print("Ended in "+str(convert_1)+"\n"+now()+" ["+colors.BOLD+colors.OKGREEN+"ANN"+colors.ENDC+"] Working on z2...", end=' ')
+        start = time.time()
+        z_two = map_back(annealer(Theta_two, sampler, k_n_reads), m_two)
+        convert_2 = datetime.timedelta(seconds=(time.time()-start))
+        print("Ended in "+str(convert_2)+"\n")
 
-        f_one = qubo_function(qubo, z_one).item()
-        f_two = qubo_function(qubo, z_two).item()
+        f_one = function_f(QUBO, z_one).item()
+        f_two = function_f(QUBO, z_two).item()
 
         if (f_one < f_two):
             z_star = z_one
@@ -227,12 +237,21 @@ def qals_solver(d_min, eta_prob_dec_rate, i_max_term_parameter, n_reads, lambda_
     d = 0
     i = 1
     lam = lambda_zero
+    sum_time = 0
     
     while True:
         print(f"---------------------------------------------------------------------------------------------------------------")
+        start_time = time.time()
+        if sum_time:
+            string = str(datetime.timedelta(seconds=((sum_time/i) * (i_max - i))))
+        else:
+            string = "Not yet available"
+        
+        print(now()+" ["+colors.BOLD+colors.OKGREEN+"PRG"+colors.ENDC+f"] Cycle {i}/{i_max} -- {round((((i-1)/i_max)*100), 2)}% -- ETA {string}") 
+        
 
         try:
-            Q_prime = np.add(qubo, (np.multiply(lam, S)))
+            Q_prime = np.add(QUBO, (np.multiply(lam, S)))
             
             if (i % N_it_const_prob == 0):
                 p = p - ((p - p_delta)*eta_prob_dec_rate)
@@ -240,13 +259,16 @@ def qals_solver(d_min, eta_prob_dec_rate, i_max_term_parameter, n_reads, lambda_
             Theta_prime, m = g(Q_prime, A, m_star, p, sim)
             
             print(now()+" ["+colors.BOLD+colors.OKGREEN+"ANN"+colors.ENDC+"] Working on z'...", end=' ')
-            z_prime = map_back(annealer(Theta_prime, sampler, n_reads), m)
+            start = time.time()
+            z_prime = map_back(annealer(Theta_prime, sampler, k_n_reads), m)
+            convert_z = datetime.timedelta(seconds=(time.time()-start))
+            print("Ended in "+str(convert_z))
 
-            if make_decision(q_perm_probability):
+            if make_decision(q_perm_prob):
                 z_prime = h(z_prime, p)
 
             if (z_prime != z_star).any() :
-                f_prime = qubo_function(qubo, z_prime).item()
+                f_prime = function_f(QUBO, z_prime).item()
                 
                 if (f_prime < f_star):
                     z_prime, z_star = z_star, z_prime
@@ -267,26 +289,37 @@ def qals_solver(d_min, eta_prob_dec_rate, i_max_term_parameter, n_reads, lambda_
             else:
                 e = e + 1
 
+            
+            converted = datetime.timedelta(seconds=(time.time()-start_time))
+
             try:
-                print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f"] f_prime = {round(f_prime,2)}, f_star = {round(f_star,2)}, p = {p}, e = {e}, d = {d} and lambda = {round(lam,5)}\n")
+                print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f"] f_prime = {round(f_prime,2)}, f_star = {round(f_star,2)}, p = {p}, e = {e}, d = {d} and lambda = {round(lam,5)}\n"+now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f"] Took {converted} in total")
                 csv_write(DIR=log_DIR,l=[i, f_prime, f_star, p, e, d, lam, z_prime, z_star])
             except UnboundLocalError:
-                print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f" No variations on f and z. p = {p}, e = {e}, d = {d} and lambda = {round(lam,5)}\n")
+                print(now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f" No variations on f and z. p = {p}, e = {e}, d = {d} and lambda = {round(lam,5)}\n"+now()+" ["+colors.BOLD+colors.OKGREEN+"DATA"+colors.ENDC+f"] Took {converted} in total")
                 csv_write(DIR=log_DIR,l=[i, "null", f_star, p, e, d, lam, "null", z_star])
+            
+            sum_time = sum_time + (time.time() - start_time)
 
             print(f"---------------------------------------------------------------------------------------------------------------\n")
-            if ((i == i_max_term_parameter) or ((e + d >= N_max_term_parameter) and (d < d_min))):
-                if(i != i_max_term_parameter):
-                    print(now()+" ["+colors.BOLD+colors.OKGREEN+"END"+colors.ENDC+"] Exited at cycle " + str(i)+"/"+str(i_max_term_parameter) + " thanks to convergence.")
+            if ((i == i_max) or ((e + d >= N_max) and (d < d_min))):
+                if(i != i_max):
+                    print(now()+" ["+colors.BOLD+colors.OKGREEN+"END"+colors.ENDC+"] Exited at cycle " + str(i)+"/"+str(i_max) + " thanks to convergence.")
                 else:
-                    print(now()+" ["+colors.BOLD+colors.OKBLUE+"END"+colors.ENDC+"] Exited at cycle "+str(i)+"/"+str(i_max_term_parameter)+"\n")
+                    print(now()+" ["+colors.BOLD+colors.OKBLUE+"END"+colors.ENDC+"] Exited at cycle "+str(i)+"/"+str(i_max)+"\n")
                 break
             
             i = i + 1
         except KeyboardInterrupt:
             break
 
-    return np.atleast_2d(np.atleast_2d(z_star).T).T[0]
+    converted = datetime.timedelta(seconds=sum_time)
+    if i != 1:
+        conv = datetime.timedelta(seconds=int(sum_time/(i-1)))
+    else:
+        conv = datetime.timedelta(seconds=int(sum_time))
+    
+    print(now()+" ["+colors.BOLD+colors.OKGREEN+"TIME"+colors.ENDC+"] Average time for iteration: " + str(conv)+"\n"+now()+" ["+colors.BOLD+colors.OKGREEN+"TIME"+colors.ENDC+"] Total time: "+str(converted)+"\n")
 
-    
-    
+    return np.atleast_2d(np.atleast_2d(z_star).T).T[0], conv
+
