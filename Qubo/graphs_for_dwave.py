@@ -5,14 +5,18 @@ import numpy as np
 import dwave_networkx as dnx
 import networkx as nx
 from dwave.system.samplers import DWaveSampler
+from .utils import print_step
 
-def annealer(qubo, sampler, k=1):
+
+def annealer(theta, sampler, k, time=False):
     #qubo = get_Q, sampler = sampler dWave, k = number of reads in sample_qubo
     #this function is activating the annealer and getting the results, 
     #works both with D-Wave and with simulation
-    response = sampler.sample_qubo(qubo, num_reads = k)
-    '''csv_report = response.to_pandas_dataframe()
-    csv_report.to_csv("annealer.csv")'''
+    if time:
+        start = time.time()        
+    response = sampler.sample_qubo(theta, num_reads=k)    
+    if time:
+        print_step(f"Time: {time.time()-start}")    
     return list(response.first.sample.values())
 
 def get_Q(q, simulation = True):
@@ -25,9 +29,9 @@ def get_Q(q, simulation = True):
     n = len(q)
     Q = dict()
     if(simulation == False):
-        print("Mapping QUBO on Dwave's qubit")
+        print_step("Mapping QUBO matrix on Dwave's qubit", "QUBO")
     else:
-        print("Mapping QUBO on Simulation")
+        print_step("Mapping QUBO matrix on Simulation", "QUBO")
     for i in range(n):
         Q[i,i] = q[i][i]
         for j in range(n):
@@ -36,6 +40,7 @@ def get_Q(q, simulation = True):
 
 
 def generate_chimera(n):
+    print_step("Generating chimera graph", "QALS")
     G = dnx.chimera_graph(16)
     tmp = nx.to_dict_of_lists(G)
     rows = []
@@ -51,6 +56,7 @@ def generate_chimera(n):
     return list(zip(rows, cols))
 
 def generate_pegasus(n):
+    print_step("Generating pegasus graph", "QALS")
     G = dnx.pegasus_graph(16)
 
     tmp = nx.to_numpy_matrix(G)
@@ -72,7 +78,7 @@ def get_Nodes(sampler, n):
     #sampler = Dwave_Sampler, n = number of nodes
     #This function get the nodes from qubits/couplers 
     #needed in case of D-Wave usage
-    print("Getting Qubits and Couplers from Dwave for QALS")
+    print_step("Getting Qubits and Couplers from Dwave for QALS")
     nodes = dict()
     tmp = list(sampler.nodelist)
     nodelist = list()

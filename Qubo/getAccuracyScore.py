@@ -4,23 +4,20 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.linear_model import LogisticRegression
+from .utils import print_step
 
 
 def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV):
     x_tmp = inputMatrix
     rows, _ = x_tmp.shape
-    pos = np.asarray(best_subset)
+    pos = best_subset
     if (isQubo == True):
-        print("Running accuracy score QUBO")
-        columns = len(pos[0])
+        print_step("Running accuracy score QUBO", "QUBO")
     elif(isRFECV == True):
-        print("Running accuracy score RFECV")
-        columns = len(pos)
+        print_step("Running accuracy score RFECV", "RFECV")        
     else:
-        #print("Running accuracy score Random Max")
-        tmp = np.where(best_subset>0)
-        pos = np.asarray(tmp)
-        columns = len(pos[0])
+        print_step("Running accuracy score QALS", "QALS")
+    columns = len(pos)
     tmp_x = x_tmp[:,pos]
     x = tmp_x.reshape(rows, columns)
     y = inputVector
@@ -31,8 +28,19 @@ def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV):
         y_train, y_test = y[train_index], y[test_index]
         
     logReg = LogisticRegression(random_state=0).fit(x_train, y_train)
-    #print(logReg.predict(x_test))
-    if(isQubo == True or isRFECV == True):
-        print(logReg.score(x_test, y_test))
+
     score = logReg.score(x_test, y_test)
+    if (isQubo == True):
+        buffer = str(score)
+        print_step("Score: "+buffer, "QUBO")
+        print_step("Done with score", "QUBO")
+    elif(isRFECV == True):
+        buffer = str(score)
+        print_step("Score: "+buffer, "RFECV")
+        print_step("Done with score", "RFECV")
+    else:
+        buffer = str(score)
+        print_step("Score: "+buffer, "QALS")
+        print_step("Done with score", "QALS")      
+    
     return score, columns

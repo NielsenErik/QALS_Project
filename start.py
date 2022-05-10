@@ -11,8 +11,10 @@ from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
 from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector
-from Qubo.print_on_file import printStartInfos, printResults_w_Noisy_samples, printResults_w_Noisy_feature, printResults, outputTxt
+from Qubo.print_on_file import printStartInfos, printResults_w_Noisy_samples, printResults_w_Noisy_feature, printResults, outputTxt, end_file
 from Qubo.qubo_matrix import qubo_Matrix
+from Qubo.utils import print_step
+import time
 
 def signal_handler(sig, frame):
     print(" ")
@@ -30,6 +32,7 @@ def ask_for_simulation():
     print(colors.ORANGE ,"To INTERRUPT program at any time press CTRL+C", colors.ENDC)   
     print(" ")
     print(colors.ORANGE ,"Would you like to try a simulation or run Dwave?", colors.ENDC)    
+    print(colors.ORANGE ,"Simulation might not return the true results for QUBO and QALS", colors.ENDC)    
     sim = True
     check = False
     while(check == False):
@@ -72,24 +75,8 @@ def ask_which_dataset():
             print(colors.FAIL, "Wrong answer, try again!", colors.ENDC)
             check = False
 
-    return answer    
-    
-def main():
-    #main function of the program
-    signal.signal(signal.SIGINT, signal_handler)
-    header_script()
-    
-    sim = ask_for_simulation()
-    answer = ask_which_dataset()
-    fileOutput = 'outPut.txt'
-    fd = outputTxt(fileOutput, sim)
-    
-    #variables needed globally
-    
-    n_reads_annealer = 50
-    noisy_steps = 3
-    
-    
+    return answer  
+def choose_dataset(answer):
     if(answer == 'a'):
         data, data_name = german_credit_data()
         inputMatrix, matrix_Len = rescaledDataframe_German(data)
@@ -106,17 +93,40 @@ def main():
         data, data_name = australian_credit_data()
         inputMatrix, matrix_Len = rescaledDataframe_Australian(data)
         inputVector = vector_V_Australian(data)
-        alpha = 0.1
+        alpha = 0.05  
+    return data_name, inputMatrix, matrix_Len, inputVector, alpha
+    
+def main():
+    #main function of the program
+    
+    header_script()
+    
+    sim = ask_for_simulation()
+    answer = ask_which_dataset()
+    fileOutput = 'output.txt'
+    fd = outputTxt(fileOutput, sim)
+    signal.signal(signal.SIGINT, signal_handler)
+    
+    #variables needed globally
+    
+    n_reads_annealer = 20
+    noisy_steps = 3
+    data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)
 
     
     printStartInfos(alpha, data_name, fd)
-
     qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, n_reads_annealer,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True, isRFECV=False)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False, isRFECV=True)
+    #QALS   
+    data_name_Qals, inputMatrix_Qals, matrix_Len_Qals, inputVector_Qals, alpha_Qals = choose_dataset(answer=answer)
+    qubo_qals = qubo_Matrix(alpha_Qals, inputMatrix_Qals, inputVector_Qals)
+    z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=30, k_n_reads=1, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
+    z_pos = np.asarray(np.where(z_qals>0)).flatten()
+    scoreQALS, feature_nQALS = getAccuracy(z_pos, inputMatrix, inputVector, isQubo= False, isRFECV=False)
 
-    printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR)
+    printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, z_pos, scoreQALS, feature_nQALS)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     #Testing methods with a percentage of noisy samples (noisy stemps are the percentage)
     
@@ -135,7 +145,8 @@ def main():
     
         noisy_scoreQubo[i], noisy_feature_nQ[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
         noisy_scoreRfecv[i], noisy_feature_nR[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_samples(i+1, fd, qubo_array, rfecv_array, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i])
+        printResults_w_Noisy_samples(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i])
+        time.sleep(1)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     ##Testing methods with new noisy features
     
@@ -154,13 +165,17 @@ def main():
           
         noisy_scoreQubo_feature[i], noisy_feature_nQ_feature[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
         noisy_scoreRfecv_feature[i], noisy_feature_nR_feature[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_feature(i+1, fd, qubo_array, rfecv_array, noisy_scoreQubo_feature[i], noisy_scoreRfecv_feature[i], noisy_feature_nQ_feature[i], noisy_feature_nR_feature[i], qubo_detector, rfecv_detector)
+        printResults_w_Noisy_feature(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo_feature[i], noisy_scoreRfecv_feature[i], noisy_feature_nQ_feature[i], noisy_feature_nR_feature[i], qubo_detector, rfecv_detector)
+        time.sleep(1)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     
+    
+    print("/////////////////////////////////////////////////////////////////////////////////////////////")
     
     print(colors.BOLD, colors.HEADER, "RESULTS", colors.ENDC)
     print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     print("RFECV = ", scoreRfecv, " Feature number = ", feature_nR, colors.ENDC)
+    print(colors.RESULT, "Qals = ", scoreQALS, " Feature number = ", feature_nQALS)
         
     print(colors.BOLD, colors.HEADER, "RESULTS with NOISY SAMPLES", colors.ENDC)
     
@@ -180,18 +195,8 @@ def main():
         print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)  
     
     print("///////////////////////////////////////////////////////////////////////////////")
-    
-    data, data_name = german_credit_data()
-    inputMatrix, matrix_Len = rescaledDataframe_German(data)
-    inputVector = vector_V_German(data)
-    alpha = 0.977    
-    
-    qubo = qubo_Matrix(alpha, inputMatrix, inputVector)        
+    end_file(fd)  
 
-    z = qals_solver(70, 0.01,100,20,1.5,matrix_Len, 10, 100, 0.1, 0.2, 'pegasus', qubo, "Output", sim=sim)
-    print(z)
-    scoreQubo, feature_nQ = getAccuracy(z, inputMatrix, inputVector, isQubo= False, isRFECV=True)
-    print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     
 if __name__=='__main__':
     main()
