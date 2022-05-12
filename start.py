@@ -10,7 +10,7 @@ from Qubo.colors import colors
 from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
-from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector
+from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector, generate_random_data
 from Qubo.print_on_file import printStartInfos, printResults_w_Noisy_samples, printResults_w_Noisy_feature, printResults, outputTxt, end_file
 from Qubo.qubo_matrix import qubo_Matrix
 from Qubo.utils import print_step
@@ -110,6 +110,7 @@ def main():
     #variables needed globally
     
     n_reads_annealer = 20
+    qals_iteration = 20
     noisy_steps = 3
     data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)
 
@@ -122,7 +123,7 @@ def main():
     #QALS   
     data_name_Qals, inputMatrix_Qals, matrix_Len_Qals, inputVector_Qals, alpha_Qals = choose_dataset(answer=answer)
     qubo_qals = qubo_Matrix(alpha_Qals, inputMatrix_Qals, inputVector_Qals)
-    z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=30, k_n_reads=1, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
+    z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=qals_iteration, k_n_reads=1, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
     z_pos = np.asarray(np.where(z_qals>0)).flatten()
     scoreQALS, feature_nQALS = getAccuracy(z_pos, inputMatrix, inputVector, isQubo= False, isRFECV=False)
 
@@ -196,6 +197,8 @@ def main():
     
     print("///////////////////////////////////////////////////////////////////////////////")
     end_file(fd)  
+    
+    
 
     
 if __name__=='__main__':
