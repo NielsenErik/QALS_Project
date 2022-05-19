@@ -1,6 +1,5 @@
 #!/usr/local/bin/python3
 
-from re import X
 from sklearn.datasets import make_classification
 import pandas as pd
 import numpy as np
@@ -9,7 +8,7 @@ def generateSintheticDataset(nSamples, nFeatures):
     X, y = make_classification(
         n_samples=nSamples,
         n_features=nFeatures,
-        n_informative=nFeatures-5,
+        n_informative=(nFeatures-int(0.05*nFeatures)),
         n_redundant=0,
         n_repeated=0,
         n_classes=2,
