@@ -4,8 +4,8 @@ import signal
 import sys
 
 from Qubo.qals import qals_solver
-from Qubo.import_data import german_credit_data, australian_credit_data, polish_bankrupcy_data
-from Qubo.preprocessing_data import rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian, vector_V_Polish, normalizing_Polish
+from Qubo.import_data import german_credit_data, australian_credit_data, polish_bankrupcy_data, synthetic_Data
+from Qubo.preprocessing_data import vector_V_synthetic, rescaledDataframe_synthetic, rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian, vector_V_Polish, normalizing_Polish
 from Qubo.colors import colors
 from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
@@ -57,7 +57,8 @@ def ask_which_dataset():
     print(colors.ORANGE ,"Wich dataset would you like to do feature selection?", colors.ENDC)    
     print(colors.ORANGE ,"[a] German Credit Data", colors.ENDC)  
     print(colors.ORANGE ,"[b] Australian Credit Data", colors.ENDC)  
-    print(colors.ORANGE ,"[c] Polish Bankruptcy Data", colors.ENDC)  
+    print(colors.ORANGE ,"[c] Polish Bankruptcy Data", colors.ENDC)
+    print(colors.ORANGE ,"[d] Synthetic Data", colors.ENDC)    
     print(colors.ORANGE ,"[e] To exit program", colors.ENDC)  
    
     check = False
@@ -65,7 +66,7 @@ def ask_which_dataset():
         print(colors.ORANGE)
         answer = input("Which dataset? ")
         print(colors.ENDC)
-        if(answer == 'a' or answer == 'b' or answer == 'c' or answer == 'e'):
+        if(answer == 'a' or answer == 'b' or answer == 'c' or answer == 'e' or answer == 'd'):
             check = True
         elif(answer == 'e'):
             check = True
@@ -94,7 +95,20 @@ def choose_dataset(answer):
         inputMatrix, matrix_Len = rescaledDataframe_Australian(data)
         inputVector = vector_V_Australian(data)
         alpha = 0.05  
+    elif(answer == 'd'):
+        print(colors.ORANGE)
+        nFeature = input("With how many features? ")
+        print(colors.ENDC)
+        data, data_name = synthetic_Data(nFeature)
+        inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
+        inputVector = vector_V_synthetic(data)
+        alpha = 0.9
     return data_name, inputMatrix, matrix_Len, inputVector, alpha
+
+def allFeaturesArray(dim):
+    tmp = np.ones(dim)
+    output = np.asarray(np.where(tmp>0)).flatten()
+    return output
     
 def main():
     #main function of the program
@@ -106,24 +120,32 @@ def main():
     fileOutput = 'output.txt'
     fd = outputTxt(fileOutput, sim)
     signal.signal(signal.SIGINT, signal_handler)
-    
+    ###########################################
     #variables needed globally
     
-    n_reads_annealer = 20
+    n_reads_annealer = 30
     qals_iteration = 20
+    qals_n_reads_annealer = 1
     noisy_steps = 3
     data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)
-
+    data_name_Qals = data_name
+    inputMatrix_Qals = inputMatrix  
+    matrix_Len_Qals = matrix_Len
+    inputVector_Qals= inputVector
+    alpha_Qals = alpha
+    ##############################################################################################
+    all_f_array = allFeaturesArray(matrix_Len)
+    scoreDataset, _ = getAccuracy(all_f_array , inputMatrix, inputVector, isQubo = False, isRFECV =False, isAllFeature = True)
     
-    printStartInfos(alpha, data_name, fd)
+    printStartInfos(alpha, data_name, fd, scoreDataset)
+   
     qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, n_reads_annealer,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True, isRFECV=False)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False, isRFECV=True)
     #QALS   
-    data_name_Qals, inputMatrix_Qals, matrix_Len_Qals, inputVector_Qals, alpha_Qals = choose_dataset(answer=answer)
     qubo_qals = qubo_Matrix(alpha_Qals, inputMatrix_Qals, inputVector_Qals)
-    z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=qals_iteration, k_n_reads=1, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
+    z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=qals_iteration, k_n_reads=qals_n_reads_annealer, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
     z_pos = np.asarray(np.where(z_qals>0)).flatten()
     scoreQALS, feature_nQALS = getAccuracy(z_pos, inputMatrix, inputVector, isQubo= False, isRFECV=False)
 
@@ -174,6 +196,7 @@ def main():
     print("/////////////////////////////////////////////////////////////////////////////////////////////")
     
     print(colors.BOLD, colors.HEADER, "RESULTS", colors.ENDC)
+    print(colors.RESULT, "All feature = ", scoreDataset)
     print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     print("RFECV = ", scoreRfecv, " Feature number = ", feature_nR, colors.ENDC)
     print(colors.RESULT, "Qals = ", scoreQALS, " Feature number = ", feature_nQALS)

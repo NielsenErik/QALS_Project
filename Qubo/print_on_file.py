@@ -20,7 +20,7 @@ def outputTxt(fileName, simulation = True):
         f.write("This result are from Dwave QPU")
     return f
 
-def printStartInfos(alpha, dataName, fileDescriptor):
+def printStartInfos(alpha, dataName, fileDescriptor, allFeature_score):
     #aplha = alpha parameter
     #dataName = name of data used
     #fileDescriptor = call file descriptor used in outputTxt
@@ -28,7 +28,9 @@ def printStartInfos(alpha, dataName, fileDescriptor):
 
     tmp = "\nData used are: " + str(dataName) + "\n"
     fileDescriptor.write(tmp)
-    tmp = "Alpha value used is: " + str(alpha) + "\n\n"
+    tmp = "Alpha value used is: " + str(alpha) + "\n"
+    fileDescriptor.write(tmp)
+    tmp = "Score with all feature: " + str(allFeature_score) + "\n\n"
     fileDescriptor.write(tmp)
     
 def printResults(fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfecv, nf_qubo, nf_efecv, z_array, score_Qals, feature_nQALS):
