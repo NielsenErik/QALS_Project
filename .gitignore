@@ -1,3 +1,6 @@
+#folders to generate synthetic data just run generate_dataset.py
+Qubo/Data_folder/Synthetic_data
+
 # Prerequisites
 *.d
 

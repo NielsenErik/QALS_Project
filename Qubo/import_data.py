@@ -42,3 +42,16 @@ def australian_credit_data ():
     except:
         print("Import dataframe error")
     return dataframe, dataFileNane
+
+def synthetic_Data(n_feature):
+    dataFileNane = "Synthetic Data with "+ str(n_feature) + " feature"
+    buffer = "Import "+dataFileNane
+    print_step(buffer)
+    try:
+        #first transformed german.data into german.csv
+        path = "Qubo/Data_folder/Synthetic_data/dataset_nf_"+str(n_feature)+".csv"
+        #column_Names = ['Status of existing checking account','Duration in month','Credit history','Purpose','Credit amount','Savings account/bonds','Present employment since','Installment rate in percentage of disposable income','Personal status and sex','Other debtors / guarantors','Present residence since','Property','Age in years','Other installment plans','Housing','Number of existing credits at this bank','Job','Number of people being liable to provide maintenance for','Telephone','foreign worker', 'Good/Bad credit]
+        dataframe = pd.read_csv(path)
+    except:
+        print("Import dataframe error")
+    return dataframe, dataFileNane

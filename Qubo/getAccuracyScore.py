@@ -7,14 +7,16 @@ from sklearn.linear_model import LogisticRegression
 from .utils import print_step
 
 
-def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV):
+def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV , isAllFeature = False):
     x_tmp = inputMatrix
     rows, _ = x_tmp.shape
     pos = best_subset
     if (isQubo == True):
         print_step("Running accuracy score QUBO", "QUBO")
     elif(isRFECV == True):
-        print_step("Running accuracy score RFECV", "RFECV")        
+        print_step("Running accuracy score RFECV", "RFECV")
+    elif(isAllFeature == True):
+        print_step("Running accuracy score for all feature", "ALL")         
     else:
         print_step("Running accuracy score QALS", "QALS")
     columns = len(pos)
@@ -38,9 +40,14 @@ def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV):
         buffer = str(score)
         print_step("Score: "+buffer, "RFECV")
         print_step("Done with score", "RFECV")
+    elif(isAllFeature == True):
+        buffer = str(score)
+        print_step("Score: "+buffer, "ALL")
+        print_step("Done with score", "ALL")     
     else:
         buffer = str(score)
         print_step("Score: "+buffer, "QALS")
-        print_step("Done with score", "QALS")      
+        print_step("Done with score", "QALS") 
+         
     
     return score, columns

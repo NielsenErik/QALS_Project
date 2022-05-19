@@ -152,3 +152,24 @@ def rescaledDataframe_Australian (inputData):
     outputData = tmp.to_numpy()
     rows, column = outputData.shape
     return outputData, column
+
+def rescaledDataframe_synthetic(inputData, n_feature):
+    print_step("Preprocessing Data")
+    
+    numData = inputData.iloc[:, :-1]
+    scaler = preprocessing.StandardScaler().fit(numData)
+    scaler.mean_
+    scaler.scale_
+    tmp = scaler.transform(numData)
+    outputData = pd.DataFrame(tmp)
+    outputData = outputData.to_numpy()
+    rows, column = outputData.shape
+    
+    return outputData, column  
+       
+def vector_V_synthetic(inputData):
+    print_step("Creating classifying vector of good/bad credit")
+    
+    vect = inputData.iloc[:,-1]
+    v = vect.to_numpy()      
+    return v
