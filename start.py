@@ -159,16 +159,18 @@ def main():
     noisy_scoreRfecv = np.zeros(noisy_steps)
     noisy_feature_nQ = np.zeros(noisy_steps)
     noisy_feature_nR = np.zeros(noisy_steps)
+    noisy_all_Score = np.zeros(noisy_steps)
     
     for i in range(noisy_steps):
         percentage_step = (i+1)*0.01
         noisy_matrix, noisy_vector, noisy_data_name = generate_noisy_data(inputMatrix, inputVector, percentage_step, matrix_Len, data_name)
         qubo_array_noisy = QUBOsolver(matrix_Len, alpha, noisy_matrix, noisy_vector, n_reads_annealer,simulation = sim) 
         rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
-    
+        
+        noisy_all_Score[i], _ = getAccuracy(all_f_array, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
         noisy_scoreQubo[i], noisy_feature_nQ[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
         noisy_scoreRfecv[i], noisy_feature_nR[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_samples(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i])
+        printResults_w_Noisy_samples(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i], noisy_all_Score[i])
         time.sleep(1)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     ##Testing methods with new noisy features
@@ -177,18 +179,20 @@ def main():
     noisy_scoreRfecv_feature = np.zeros(noisy_steps)
     noisy_feature_nQ_feature = np.zeros(noisy_steps)
     noisy_feature_nR_feature = np.zeros(noisy_steps)
+    noisy_all_Score = np.zeros(noisy_steps)
     
     for i in range(noisy_steps):
-        noisy_matrix, noisy_vector, noisy_data_name = generate_noisy_feature(inputMatrix, inputVector, i, matrix_Len, data_name)
+        noisy_matrix, noisy_vector, noisy_data_name = generate_noisy_feature(inputMatrix, inputVector, i+1, matrix_Len, data_name)
         qubo_array_noisy = QUBOsolver(matrix_Len, alpha, noisy_matrix, noisy_vector, n_reads_annealer,simulation = sim) 
         rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
         
         qubo_detector = noisy_feature_detector(qubo_array_noisy, matrix_Len)
         rfecv_detector = noisy_feature_detector(rfecv_array_noisy, matrix_Len) 
-          
+        
+        noisy_all_Score[i], _ = getAccuracy(all_f_array, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)          
         noisy_scoreQubo_feature[i], noisy_feature_nQ_feature[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
         noisy_scoreRfecv_feature[i], noisy_feature_nR_feature[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_feature(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo_feature[i], noisy_scoreRfecv_feature[i], noisy_feature_nQ_feature[i], noisy_feature_nR_feature[i], qubo_detector, rfecv_detector)
+        printResults_w_Noisy_feature(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo_feature[i], noisy_scoreRfecv_feature[i], noisy_feature_nQ_feature[i], noisy_feature_nR_feature[i], qubo_detector, rfecv_detector, noisy_all_Score[i])
         time.sleep(1)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
     
