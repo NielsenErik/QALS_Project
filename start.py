@@ -83,7 +83,6 @@ def choose_dataset(answer):
         inputMatrix, matrix_Len = rescaledDataframe_German(data)
         inputVector = vector_V_German(data)
         alpha = 0.977
-    
     elif(answer == 'c'):
         data, data_name = polish_bankrupcy_data()
         inputMatrix,matrix_Len = normalizing_Polish(data)
@@ -96,13 +95,17 @@ def choose_dataset(answer):
         inputVector = vector_V_Australian(data)
         alpha = 0.05  
     elif(answer == 'd'):
-        print(colors.ORANGE)
-        nFeature = input("With how many features? ")
-        print(colors.ENDC)
-        data, data_name = synthetic_Data(nFeature)
-        inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
-        inputVector = vector_V_synthetic(data)
-        alpha = 0.9
+        try:
+            print(colors.ORANGE)
+            nFeature = input("With how many features? ")
+            print(colors.ENDC)
+            data, data_name = synthetic_Data(nFeature)
+            inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
+            inputVector = vector_V_synthetic(data)
+            alpha = 0.977
+        except:
+            print(colors.FAIL+"dataset with "+nFeature+" features doesn't exists"+colors.ENDC)
+            
     return data_name, inputMatrix, matrix_Len, inputVector, alpha
 
 def allFeaturesArray(dim):
@@ -124,7 +127,7 @@ def main():
     #variables needed globally
     
     n_reads_annealer = 30
-    qals_iteration = 20
+    qals_iteration = 10
     qals_n_reads_annealer = 1
     noisy_steps = 3
     data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)

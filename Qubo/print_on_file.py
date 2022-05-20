@@ -51,7 +51,7 @@ def printResults(fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfec
 
 def printResults_w_Noisy_samples(noise, fileDescriptor, qubo_array, rfecv_array, score_qubo, score_rfecv, nf_qubo, nf_efecv, noisy_all_Score):
     #fileDescriptor = call file descriptor used in outputTxt
-    tmp = "Results with Noisy samples'%' = " + str(noise) +"%\n\n"
+    tmp = "Results with Noisy samples % = " + str(noise) +"%\n\n"
     fileDescriptor.write(tmp)
     tmp = "QUBO features are: " + str(qubo_array) + "\n"
     fileDescriptor.write(tmp)
