@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import pandas as pd
 from .utils import print_step
 
 def generate_noisy_data(inputMatrix, inputVector, noise_dim_percent, dim, input_data_name):
@@ -23,7 +24,11 @@ def generate_noisy_data(inputMatrix, inputVector, noise_dim_percent, dim, input_
             new_array[j] = inputMatrix[random_index][j]
         noise = np.vstack([noise, new_array])
         noisy_vector = np.append(noisy_vector, random_binary)
-    return noise, noisy_vector, data_name
+    tmp = np.insert(noise, dim, noisy_vector, axis = 1)
+    dataset = pd.DataFrame(tmp)
+    dataset_name = "German_dataset_noise_samples_"+str(noise_dim_percent)+".csv"
+    path = "./Qubo/Data_folder/German/"+dataset_name
+    dataset.to_csv(path)
 
 def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, input_data_name):
     #inputMatrix = matrix from rescaledDataframe()
@@ -44,6 +49,12 @@ def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, 
             #new_column[j] = random.randint(0, 1)
             new_column[j] = random.random()
         noise = np.insert(noise, -1, new_column, axis=1)
+    
+    tmp = np.insert(noise, dim, noisy_vector, axis = 1)
+    dataset = pd.DataFrame(tmp)
+    dataset_name = "German_dataset_noise_feature_"+str(noise_feature_number)+".csv"
+    path = "./Qubo/Data_folder/German/"+dataset_name
+    dataset.to_csv(path)
         
     
     return noise, noisy_vector, data_name
@@ -53,26 +64,3 @@ def noisy_feature_detector(array, dim):
     if(np.any(array>(dim-1))):
         alert = True
     return alert   
-
-def generate_random_data(dim, input_data_name):
-    #inputMatrix = matrix from rescaledDataframe()
-    #inputVector = vector from vector_V()
-    #noise_feature_number = number of noisy feature
-    #dim = dimension of the problem aka number of feature in the preprocessing matrix
-    #input_data_name = name of dataset
-    data_name = "Random data of dim " + str(dim)
-    print_step("Generating "+data_name)
-    rows = 1000
-    random_matrix = np.zeros((rows, dim))
-    for i in range(dim):
-        new_column = np.ones((rows,1))
-        v_vector = np.zeros((rows,1))
-        for j in range(rows):
-            new_column[j] = random.randint(0, 1)
-            if(i == 0):
-                v_vector[j] = random.randint(0, 1)
-                
-        random_matrix = np.insert(random_matrix, -1, new_column, axis=1)
-        
-    
-    return random_matrix, v_vector, data_name

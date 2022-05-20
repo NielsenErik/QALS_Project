@@ -1,0 +1,1347 @@
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 09:23:47
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.977
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  2  4  6  8  9 10 11 16 18 20 23 25 31 35 38 39 43 44 47]
+
+QUBO accuracy score = 0.744 with number of feature = 23
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.73 with number of feature = 20
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 23 25 26 27 28 29 31 32 33 34 35 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7504950495049505
+QUBO accuracy score = 0.7386138613861386 with number of feature = 23.0
+RFECVaccuracy score = 0.7445544554455445 with number of feature = 37.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  2  3  6  7 10 12 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 23 24 25 26 27 28 29 30 31 33 34 35 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7333333333333333
+QUBO accuracy score = 0.7411764705882353 with number of feature = 24.0
+RFECVaccuracy score = 0.7568627450980392 with number of feature = 38.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7941747572815534
+QUBO accuracy score = 0.7689320388349514 with number of feature = 24.0
+RFECVaccuracy score = 0.7844660194174757 with number of feature = 45.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 43 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.752 with number of feature = 36.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.738
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 48 49 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47 48 49 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.748
+QUBO accuracy score = 0.742 with number of feature = 25.0
+RFECVaccuracy score = 0.76 with number of feature = 37.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 09:28:11 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 09:34:51
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.977
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 1  4  7  8 10 11 12 14 17 20 23 24 27 29 30 32 34 35 36 37 42 44 46]
+
+QUBO accuracy score = 0.762 with number of feature = 24
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.69 with number of feature = 23
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 39 40 41 44 46 47]
+
+ALL accuracy score = 0.7722772277227723
+QUBO accuracy score = 0.7623762376237624 with number of feature = 24.0
+RFECVaccuracy score = 0.7742574257425743 with number of feature = 35.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 17 18 19 20 21 23 25 26 27 28 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7392156862745098
+QUBO accuracy score = 0.7352941176470589 with number of feature = 24.0
+RFECVaccuracy score = 0.7529411764705882 with number of feature = 34.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 1  2  4  5  6  7  8  9 10 14 15 17 18 19 22 25 27 28 31 33 34 35 39 47]
+
+ALL accuracy score = 0.7475728155339806
+QUBO accuracy score = 0.7786407766990291 with number of feature = 24.0
+RFECVaccuracy score = 0.7669902912621359 with number of feature = 24.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 48 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 45 46 48 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.73 with number of feature = 24.0
+RFECVaccuracy score = 0.748 with number of feature = 46.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 48 49 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 37 39 40 41 43 46 48 49 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.744 with number of feature = 25.0
+RFECVaccuracy score = 0.76 with number of feature = 38.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 09:39:28 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 09:42:34
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.977
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 1  2  5  9 10 11 17 18 19 23 25 26 28 30 31 32 33 34 36 38 43 44]
+
+QUBO accuracy score = 0.762 with number of feature = 24
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.724 with number of feature = 22
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 18 19 22 23 25 27 28 29 31 33 34 35 36 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7287128712871287
+QUBO accuracy score = 0.7445544554455445 with number of feature = 23.0
+RFECVaccuracy score = 0.7485148514851485 with number of feature = 33.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 21 22 23 25 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7294117647058823
+QUBO accuracy score = 0.7529411764705882 with number of feature = 23.0
+RFECVaccuracy score = 0.7411764705882353 with number of feature = 42.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  6  7  8  9 10 11 14 15 17 18 19 20 21 22 25 27 28 29 31 33 34 35 36 37 38 39 40 41 47]
+
+ALL accuracy score = 0.7747572815533981
+QUBO accuracy score = 0.7747572815533981 with number of feature = 23.0
+RFECVaccuracy score = 0.7864077669902912 with number of feature = 33.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.75
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.762 with number of feature = 33.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.75
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.762 with number of feature = 33.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 09:47:52 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 09:51:10
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.999
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  1  2  7  9 11 12 14 16 19 21 22 23 24 25 32 36 42 43 44 45]
+
+QUBO accuracy score = 0.754 with number of feature = 46
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.698 with number of feature = 21
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 39 40 41 43 44 45 46 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 22 23 24 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 44 45 46 47]
+
+ALL accuracy score = 0.7306930693069307
+QUBO accuracy score = 0.7366336633663366 with number of feature = 46.0
+RFECVaccuracy score = 0.7366336633663366 with number of feature = 44.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 31 32 33 34 35 36 37 38 39 40 41 43 44 45 46 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 17 18 19 22 25 27 28 31 33 34 35 36 39 40 41 47]
+
+ALL accuracy score = 0.7450980392156863
+QUBO accuracy score = 0.7450980392156863 with number of feature = 45.0
+RFECVaccuracy score = 0.7549019607843137 with number of feature = 31.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 31 32 33 34 35 36 37 38 39 40 41 42 43 44 46 47]
+RFECV features are: [ 1  2  4  5  6  7  8  9 10 14 15 17 18 19 22 28 33 34 39 47]
+
+ALL accuracy score = 0.7223300970873786
+QUBO accuracy score = 0.7223300970873786 with number of feature = 45.0
+RFECVaccuracy score = 0.7320388349514563 with number of feature = 20.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 14 15 17 18 19 22 25 27 28 33 34 39 47 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.744
+QUBO accuracy score = 0.742 with number of feature = 47.0
+RFECVaccuracy score = 0.74 with number of feature = 24.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47 48 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47 48 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.762 with number of feature = 48.0
+RFECVaccuracy score = 0.762 with number of feature = 34.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 43 44 46 47 48 49 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 14 15 17 18 19 22 25 28 31 33 34 35 39 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.752 with number of feature = 49.0
+RFECVaccuracy score = 0.75 with number of feature = 24.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 09:56:36 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 09:58:41
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.98
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  3  4  7  8  9 11 14 15 16 18 20 23 28 29 33 37 38 40 42 43 44]
+
+QUBO accuracy score = 0.752 with number of feature = 25
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.696 with number of feature = 22
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 31 33 34 35 36 37 38 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7366336633663366
+QUBO accuracy score = 0.7267326732673267 with number of feature = 24.0
+RFECVaccuracy score = 0.7485148514851485 with number of feature = 36.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 31 32 33 34 35 39 40 41 43 46 47]
+
+ALL accuracy score = 0.7450980392156863
+QUBO accuracy score = 0.7450980392156863 with number of feature = 24.0
+RFECVaccuracy score = 0.7588235294117647 with number of feature = 35.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  2  3  6  7 10 12 13 14 16 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8 10 13 14 17 18 19 22 25 28 33 39 47]
+
+ALL accuracy score = 0.7242718446601941
+QUBO accuracy score = 0.7320388349514563 with number of feature = 25.0
+RFECVaccuracy score = 0.7378640776699029 with number of feature = 20.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 24 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 44 46 47 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.742 with number of feature = 26.0
+RFECVaccuracy score = 0.75 with number of feature = 43.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 46 47 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.74
+QUBO accuracy score = 0.758 with number of feature = 25.0
+RFECVaccuracy score = 0.756 with number of feature = 35.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 44 46 47 49 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.748
+QUBO accuracy score = 0.75 with number of feature = 26.0
+RFECVaccuracy score = 0.758 with number of feature = 45.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:03:58 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:05:42
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.985
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 2  4  7  9 10 13 14 15 17 20 22 23 28 29 32 41 43 44 45]
+
+QUBO accuracy score = 0.758 with number of feature = 27
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.7 with number of feature = 19
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 44 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 14 15 17 18 19 22 24 25 27 28 29 30 31 33 34 35 36 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7306930693069307
+QUBO accuracy score = 0.7366336633663366 with number of feature = 26.0
+RFECVaccuracy score = 0.7267326732673267 with number of feature = 37.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  1  2  3  6  7  8 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 24 26 27 28 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7254901960784313
+QUBO accuracy score = 0.7431372549019608 with number of feature = 26.0
+RFECVaccuracy score = 0.7313725490196078 with number of feature = 30.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 40 41 43 47]
+RFECV features are: [ 0  1  2  3  6  7  8  9 10 14 15 18 19 22 25 26 27 28 31 33 34 35 36 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7456310679611651
+QUBO accuracy score = 0.7689320388349514 with number of feature = 26.0
+RFECVaccuracy score = 0.7708737864077669 with number of feature = 30.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 31 33 34 35 39 40 41 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.758 with number of feature = 27.0
+RFECVaccuracy score = 0.764 with number of feature = 31.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 25 26 27 28 31 33 34 35 39 40 41 46 47 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.74
+QUBO accuracy score = 0.762 with number of feature = 27.0
+RFECVaccuracy score = 0.754 with number of feature = 34.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47 48 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.756
+QUBO accuracy score = 0.76 with number of feature = 28.0
+RFECVaccuracy score = 0.76 with number of feature = 34.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:11:00 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:12:20
+This result are from Dwave QPU
+Data used are: Synthetic Data with 80 feature
+Alpha value used is: 0.9
+Score with all feature: 0.9324
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:14:43
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.985
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  1  2  4 10 11 14 18 19 22 23 25 27 28 31 32 33 35 39 42 45 46 47]
+
+QUBO accuracy score = 0.758 with number of feature = 27
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.704 with number of feature = 23
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples'%' = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 21 22 24 25 26 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7207920792079208
+QUBO accuracy score = 0.7504950495049505 with number of feature = 27.0
+RFECVaccuracy score = 0.7465346534653465 with number of feature = 36.0
+
+Results with Noisy samples'%' = 2%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 17 18 19 20 22 24 27 28 31 32 33 34 39 40 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 21 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7254901960784313
+QUBO accuracy score = 0.7450980392156863 with number of feature = 25.0
+RFECVaccuracy score = 0.7529411764705882 with number of feature = 35.0
+
+Results with Noisy samples'%' = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 40 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 27 28 29 30 31 32 33 34 36 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7514563106796116
+QUBO accuracy score = 0.7456310679611651 with number of feature = 27.0
+RFECVaccuracy score = 0.7475728155339806 with number of feature = 37.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 37 39 40 41 46 47 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.748
+QUBO accuracy score = 0.758 with number of feature = 27.0
+RFECVaccuracy score = 0.756 with number of feature = 37.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47 48 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.756 with number of feature = 28.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 25 27 28 31 32 33 34 39 41 43 47 48 49 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 24 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 44 46 47 48 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.744 with number of feature = 29.0
+RFECVaccuracy score = 0.746 with number of feature = 44.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:20:11 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:29:16
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.98
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  1  2  6  7 11 12 13 17 18 21 23 25 27 30 33 35 39 42 43 46]
+
+QUBO accuracy score = 0.752 with number of feature = 25
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.742 with number of feature = 21
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 26 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7544554455445545
+QUBO accuracy score = 0.7683168316831683 with number of feature = 25.0
+RFECVaccuracy score = 0.7504950495049505 with number of feature = 35.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [ 0  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 21 22 23 24 25 26 27 28 29 30 31 33 34 35 39 40 41 43 44 45 46 47]
+
+ALL accuracy score = 0.7392156862745098
+QUBO accuracy score = 0.7450980392156863 with number of feature = 22.0
+RFECVaccuracy score = 0.7352941176470589 with number of feature = 41.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7689320388349514
+QUBO accuracy score = 0.7786407766990291 with number of feature = 25.0
+RFECVaccuracy score = 0.7844660194174757 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 43 44 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.752 with number of feature = 25.0
+RFECVaccuracy score = 0.75 with number of feature = 37.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 37 39 40 41 43 46 47 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.748
+QUBO accuracy score = 0.736 with number of feature = 26.0
+RFECVaccuracy score = 0.752 with number of feature = 38.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.76
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:35:11 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:36:30
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.98
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  1  2  5  6  9 10 11 12 15 17 19 21 22 24 29 30 31 32 37 38 39 40 42 43 44 46 47]
+
+QUBO accuracy score = 0.752 with number of feature = 25
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.738 with number of feature = 28
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7564356435643564
+QUBO accuracy score = 0.7584158415841584 with number of feature = 24.0
+RFECVaccuracy score = 0.7782178217821782 with number of feature = 32.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  5  6  7  8  9 10 11 14 15 16 17 18 19 22 23 25 27 28 31 33 34 35 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7568627450980392
+QUBO accuracy score = 0.7764705882352941 with number of feature = 24.0
+RFECVaccuracy score = 0.7372549019607844 with number of feature = 33.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 12 13 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 17 18 19 20 22 25 27 28 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7689320388349514
+QUBO accuracy score = 0.7514563106796116 with number of feature = 24.0
+RFECVaccuracy score = 0.7631067961165049 with number of feature = 31.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 32 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 24 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 44 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.744
+QUBO accuracy score = 0.752 with number of feature = 25.0
+RFECVaccuracy score = 0.75 with number of feature = 42.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47 48 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 27 28 31 33 34 35 39 40 41 46 47 48 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.742
+QUBO accuracy score = 0.752 with number of feature = 26.0
+RFECVaccuracy score = 0.756 with number of feature = 34.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 48 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.754 with number of feature = 25.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:42:15 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:44:11
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.5
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 2 11 16 26 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 1  2  3  4  6  9 11 14 15 16 19 23 24 25 28 29 30 31 33 34 36 38 40 41 43 45 47]
+
+QUBO accuracy score = 0.696 with number of feature = 5
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.744 with number of feature = 27
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 6 17 29 40]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 13 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7584158415841584
+QUBO accuracy score = 0.7049504950495049 with number of feature = 4.0
+RFECVaccuracy score = 0.7702970297029703 with number of feature = 34.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [12 14 20 27 33]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 17 18 19 22 24 25 26 27 28 33 34 35 36 37 38 39 40 41 46 47]
+
+ALL accuracy score = 0.7588235294117647
+QUBO accuracy score = 0.6901960784313725 with number of feature = 5.0
+RFECVaccuracy score = 0.7529411764705882 with number of feature = 33.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [18 19 27 32]
+RFECV features are: [ 0  1  2  3  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7300970873786408
+QUBO accuracy score = 0.6932038834951456 with number of feature = 4.0
+RFECVaccuracy score = 0.7553398058252427 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 1 27 37 41]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 26 27 28 29 30 31 33 34 35 36 37 38 39 40 41 43 46 47 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.692 with number of feature = 4.0
+RFECVaccuracy score = 0.756 with number of feature = 40.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 1 18 31 33]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 31 33 34 35 39 40 41 46 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.744
+QUBO accuracy score = 0.7 with number of feature = 4.0
+RFECVaccuracy score = 0.756 with number of feature = 32.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 5  8 14 43 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 46 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.748
+QUBO accuracy score = 0.7 with number of feature = 5.0
+RFECVaccuracy score = 0.76 with number of feature = 34.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:49:52 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 10:51:05
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.2
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [12 27 33 46]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 5  6  7  8  9 11 14 15 16 18 21 23 24 25 30 32 34 41 45 47]
+
+QUBO accuracy score = 0.688 with number of feature = 4
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.69 with number of feature = 20
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 1  3 11]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 39 40 41 44 46 47]
+
+ALL accuracy score = 0.7643564356435644
+QUBO accuracy score = 0.699009900990099 with number of feature = 3.0
+RFECVaccuracy score = 0.7742574257425743 with number of feature = 36.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [ 6 13 17 41]
+RFECV features are: [ 1  2  4  5  6  7  8  9 10 14 15 16 17 18 19 22 25 27 28 33 34 39 40 41 46 47]
+
+ALL accuracy score = 0.7470588235294118
+QUBO accuracy score = 0.703921568627451 with number of feature = 4.0
+RFECVaccuracy score = 0.7666666666666667 with number of feature = 26.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [ 3 22 25]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 39 40 41 43 44 45 46 47]
+
+ALL accuracy score = 0.7611650485436893
+QUBO accuracy score = 0.6932038834951456 with number of feature = 3.0
+RFECVaccuracy score = 0.7572815533980582 with number of feature = 44.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [11 17 32]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 43 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.75
+QUBO accuracy score = 0.7 with number of feature = 3.0
+RFECVaccuracy score = 0.752 with number of feature = 36.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [11 18]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 26 27 28 29 30 31 33 34 35 39 40 41 46 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.7 with number of feature = 2.0
+RFECVaccuracy score = 0.76 with number of feature = 34.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 5 12 30]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 27 28 31 33 34 35 39 40 41 46 48 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.7 with number of feature = 3.0
+RFECVaccuracy score = 0.758 with number of feature = 32.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 10:55:56 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:01:21
+This result are from Dwave QPU
+Data used are: German Credit Data
+Alpha value used is: 0.977
+Score with all feature: 0.752
+
+RESULTS
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+QALS features are: [ 0  1  2  3  5  8  9 10 11 12 14 15 17 18 20 21 22 23 24 25 26 27 28 29 30 31 32 33 35 37 38 40 43 44 45 46 47]
+
+QUBO accuracy score = 0.754 with number of feature = 23
+RFECV accuracy score = 0.762 with number of feature = 33
+QALS accuracy score = 0.728 with number of feature = 37
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 0  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  3  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 23 24 25 26 27 28 31 32 33 34 35 39 40 41 43 44 46 47]
+
+ALL accuracy score = 0.7247524752475247
+QUBO accuracy score = 0.7445544554455445 with number of feature = 23.0
+RFECVaccuracy score = 0.7445544554455445 with number of feature = 37.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7490196078431373
+QUBO accuracy score = 0.7705882352941177 with number of feature = 24.0
+RFECVaccuracy score = 0.7490196078431373 with number of feature = 32.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 47]
+RFECV features are: [ 0  1  2  4  5  6  7  8  9 10 11 14 15 16 17 18 19 20 22 25 27 28 29 30 31 33 34 35 39 40 41 46 47]
+
+ALL accuracy score = 0.7456310679611651
+QUBO accuracy score = 0.7553398058252427 with number of feature = 24.0
+RFECVaccuracy score = 0.7553398058252427 with number of feature = 33.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 28 31 33 34 39 41 43 48]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 46 48]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.754
+QUBO accuracy score = 0.762 with number of feature = 24.0
+RFECVaccuracy score = 0.762 with number of feature = 33.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 0  1  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47 49]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 13 14 15 16 17 18 19 22 25 26 27 28 29 31 33 34 35 39 40 41 43 46 47 49]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.758
+QUBO accuracy score = 0.746 with number of feature = 24.0
+RFECVaccuracy score = 0.756 with number of feature = 36.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 0  2  3  6  7 10 13 14 17 18 19 20 22 24 27 31 33 34 39 41 43 47 49 50]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 0  1  2  3  4  5  6  7  8  9 10 11 14 15 16 17 18 19 22 25 27 28 29 30 31 33 34 35 39 40 41 43 46 47 49 50]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.752
+QUBO accuracy score = 0.74 with number of feature = 24.0
+RFECVaccuracy score = 0.758 with number of feature = 36.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 11:05:41 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:07:24
+This result are from Dwave QPU=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:07:39
+This result are from Dwave QPU
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.7
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:11:13
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.9
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:12:41
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.95
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:13:53
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.97
+Score with all feature: 0.9468
+
+RESULTS
+
+QUBO features are: [ 1  4  8 14 16 19 20 21 27 29 30 33 34 40 41 42 43 47 49 50 55 58 62 64 66 67 68 72 73 74 77 78 83 87 88 89 90 91 93 94 97 98 99]
+RFECV features are: [  1   2   3   4   5   6   8   9  11  12  14  16  19  20  21  22  23  24  25  26  27  29  30  31  32  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  59  60  61  62  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100]
+QALS features are: [  0   2   9  10  11  14  15  16  18  19  21  22  24  25  27  28  30  31  33  35  37  38  39  42  45  46  48  49  50  52  53  54  56  59  61  65  67  68  69  70  71  73  74  77  78  80  81  82  84  86  87  89  90  91  92  95  96  97 100]
+
+QUBO accuracy score = 0.9196 with number of feature = 43
+RFECV accuracy score = 0.9456 with number of feature = 76
+QALS accuracy score = 0.8608 with number of feature = 59
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 1  4  8 14 16 19 20 21 27 29 30 33 34 40 41 42 43 47 49 50 55 58 62 64 66 67 68 72 73 74 77 78 83 87 88 89 90 91 93 94 97 98 99]
+RFECV features are: [  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100]
+
+ALL accuracy score = 0.9409900990099009
+QUBO accuracy score = 0.9180198019801981 with number of feature = 43.0
+RFECVaccuracy score = 0.9405940594059405 with number of feature = 100.0
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:16:51
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.98
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:18:02
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.977
+Score with all feature: 0.9468
+
+RESULTS
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   4   5   6   8   9  11  12  14  16  19  20  21  22  23  24  25  26  27  29  30  31  32  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  59  60  61  62  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100]
+QALS features are: [ 6  8 12 16 17 18 21 22 23 24 31 34 35 39 47 48 52 53 54 60 62 64 70 72 75 76 77 78 79 89 92 93 97]
+
+QUBO accuracy score = 0.9224 with number of feature = 51
+RFECV accuracy score = 0.9456 with number of feature = 76
+QALS accuracy score = 0.7908 with number of feature = 33
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  37  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   5   6   9  11  15  16  17  18  19  20  21  22  23  24  25  26  27  29  30  31  32  33  34  35  36  41  42  43  45  47  49  50  54  56  57  58  59  60  61  62  63  64  65  66  67  68  69  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  94  95  96  97  98  99 100]
+
+ALL accuracy score = 0.9485148514851485
+QUBO accuracy score = 0.9267326732673268 with number of feature = 52.0
+RFECVaccuracy score = 0.9461386138613861 with number of feature = 76.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  38  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   5   9  11  12  16  19  20  21  22  23  25  26  27  29  30  31  32  34  35  41  42  43  45  47  49  50  54  56  57  58  60  62  64  65  66  67  68  69  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100]
+
+ALL accuracy score = 0.9329411764705883
+QUBO accuracy score = 0.9176470588235294 with number of feature = 52.0
+RFECVaccuracy score = 0.9333333333333333 with number of feature = 66.0
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:21:57
+This result are from simulation=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:22:21
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.975
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:23:30
+This result are from simulation
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.976
+Score with all feature: 0.9468
+
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:24:38
+This result are from Dwave QPU
+Data used are: Synthetic Data with 100 feature
+Alpha value used is: 0.977
+Score with all feature: 0.9468
+
+RESULTS
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  37  40  41  42  43  47  49  50  55  58  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   4   5   6   8   9  11  12  14  16  19  20  21  22  23  24  25  26  27  29  30  31  32  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  59  60  61  62  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100]
+QALS features are: [ 0  5  8 14 20 27 33 34 41 45 48 50 51 54 68 72 74 78 81 83 89 91 95 98]
+
+QUBO accuracy score = 0.9208 with number of feature = 51
+RFECV accuracy score = 0.9456 with number of feature = 76
+QALS accuracy score = 0.7696 with number of feature = 24
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   5   6   8   9  11  12  14  16  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  59  60  61  62  64  65  66  67  68  69  71  72  73  74  75  76  77  78  80  82  83  84  85  86  87  88  89  90  91  93  95  97  98  99 100]
+
+ALL accuracy score = 0.9417821782178217
+QUBO accuracy score = 0.9192079207920792 with number of feature = 51.0
+RFECVaccuracy score = 0.9441584158415841 with number of feature = 76.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  37  40  41  42  43  47  49  50  55  58  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   5   6   9  11  12  16  17  19  20  21  22  23  26  27  29  30  31  32  34  35  39  41  42  43  47  49  50  51  52  54  56  57  58  60  62  64  65  66  67  68  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  96  97  98  99 100]
+
+ALL accuracy score = 0.9356862745098039
+QUBO accuracy score = 0.9117647058823529 with number of feature = 51.0
+RFECVaccuracy score = 0.9372549019607843 with number of feature = 67.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100]
+RFECV features are: [  1   2   3   5   6   8   9  10  11  12  16  18  19  20  21  22  23  24  25  26  27  29  30  31  33  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  60  62  64  65  66  67  68  69  72  73  74  75  76  77  78  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100]
+
+ALL accuracy score = 0.9215533980582524
+QUBO accuracy score = 0.9029126213592233 with number of feature = 51.0
+RFECVaccuracy score = 0.9273786407766991 with number of feature = 72.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  22  27  29  30  32  33  34  35  40  41  42  43  47  49  50  55  58  60  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 100 101]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [  1   2   3   4   5   6   8   9  11  12  14  16  19  20  21  22  23  24  25  26  27  29  30  31  32  34  35  36  41  42  43  45  47  49  50  51  54  56  57  58  59  60  61  62  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  82  83  85  86  87  88  89  90  91  93  95  96  97  98  99 100 101]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9468
+QUBO accuracy score = 0.9228 with number of feature = 53.0
+RFECVaccuracy score = 0.9456 with number of feature = 77.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [  1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  37  40  41  42  43  47  49  50  55  58  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 102]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [  0   1   2   3   4   5   6   7   8   9  10  11  12  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  34  35  36  37  39  40  41  42  43  44  45  46  47  49  50  51  52  54  56  57  58  59  60  61  62  63  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  81  82  83  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100 101 102]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9476
+QUBO accuracy score = 0.9208 with number of feature = 51.0
+RFECVaccuracy score = 0.9492 with number of feature = 95.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [  0   1   4   6   8  13  14  16  19  20  21  27  29  30  32  33  34  35  37  40  41  42  43  47  49  50  55  58  62  64  66  67  68  69  72  73  74  77  78  80  83  87  88  89  90  91  93  94  97  98  99 103]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [  1   2   3   4   5   6   7   8   9  10  11  12  14  15  16  17  18  19  20  21  22  23  24  25  26  27  29  30  31  32  34  35  36  39  40  41  42  43  44  45  47  49  50  51  54  56  57  58  59  60  61  62  63  64  65  66  67  68  69  71  72  73  74  75  76  77  78  79  80  81  82  83  85  86  87  88  89  90  91  93  94  95  96  97  98  99 102 103]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9476
+QUBO accuracy score = 0.9212 with number of feature = 52.0
+RFECVaccuracy score = 0.9472 with number of feature = 88.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 11:45:50 Closing File
+############################################################################
+############################################################################
+=============================================================================
+=============================================================================
+=============================================================================
+Start Infos
+20/05/2022, 11:51:57
+This result are from Dwave QPU
+Data used are: Synthetic Data with 30 feature
+Alpha value used is: 0.5
+Score with all feature: 0.9348
+
+RESULTS
+
+QUBO features are: [3 4 8]
+RFECV features are: [ 1  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
+QALS features are: [ 2  4  7  8 10 12 13 17 18 19 22 23 24 25 27]
+
+QUBO accuracy score = 0.7216 with number of feature = 3
+RFECV accuracy score = 0.9352 with number of feature = 29
+QALS accuracy score = 0.8328 with number of feature = 15
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with Noisy samples % = 1%
+
+QUBO features are: [ 0  3 28 29 30]
+RFECV features are: [ 1  3  4  6  7  8  9 11 12 13 14 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
+
+ALL accuracy score = 0.9223762376237624
+QUBO accuracy score = 0.777029702970297 with number of feature = 5.0
+RFECVaccuracy score = 0.9255445544554456 with number of feature = 26.0
+
+Results with Noisy samples % = 2%
+
+QUBO features are: [ 2  3 24]
+RFECV features are: [ 1  3  4  6  7  8  9 11 12 14 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30]
+
+ALL accuracy score = 0.928235294117647
+QUBO accuracy score = 0.755686274509804 with number of feature = 3.0
+RFECVaccuracy score = 0.9274509803921569 with number of feature = 25.0
+
+Results with Noisy samples % = 3%
+
+QUBO features are: [ 8 28 29 30]
+RFECV features are: [ 1  3  4  6  7  8  9 11 12 14 16 17 18 19 20 22 23 24 25 26 27 28 29 30]
+
+ALL accuracy score = 0.9157281553398058
+QUBO accuracy score = 0.7603883495145631 with number of feature = 4.0
+RFECVaccuracy score = 0.9168932038834952 with number of feature = 24.0
+
+////////////////////////////////////////////////////////////////////////////////////
+Results with number of noisy feature = 1
+
+QUBO features are: [ 3  8 19 28]
+RFECV features are: [ 1  3  4  6  7  8  9 11 12 13 14 16 17 18 19 20 21 22 23 24 25 26 27 28 29 31]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9344
+QUBO accuracy score = 0.748 with number of feature = 4.0
+RFECVaccuracy score = 0.9372 with number of feature = 26.0
+
+Results with number of noisy feature = 2
+
+QUBO features are: [ 4  8 28 31]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9332
+QUBO accuracy score = 0.7356 with number of feature = 4.0
+RFECVaccuracy score = 0.9356 with number of feature = 32.0
+
+Results with number of noisy feature = 3
+
+QUBO features are: [ 2  3 19 24 31]
+*****DETECTED NOISY FEATURE in QUBO*****
+RFECV features are: [ 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33]
+*****DETECTED NOISY FEATURE in RFECV*****
+
+ALL accuracy score = 0.9344
+QUBO accuracy score = 0.7836 with number of feature = 5.0
+RFECVaccuracy score = 0.9328 with number of feature = 33.0
+
+////////////////////////////////////////////////////////////////////////////////////
+20/05/2022, 11:58:56 Closing File
+############################################################################
+############################################################################

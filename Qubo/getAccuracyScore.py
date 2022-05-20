@@ -29,7 +29,7 @@ def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV , isAllFe
         x_train, x_test = x[train_index], x[test_index]
         y_train, y_test = y[train_index], y[test_index]
         
-    logReg = LogisticRegression(random_state=0).fit(x_train, y_train)
+    logReg = LogisticRegression(random_state=0, max_iter=2000).fit(x_train, y_train)
 
     score = logReg.score(x_test, y_test)
     if (isQubo == True):
