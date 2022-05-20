@@ -41,7 +41,8 @@ def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, 
     for i in range(noise_feature_number):
         new_column = np.zeros(rows)
         for j in range(rows):
-            new_column[j] = random.randint(0, 1)
+            #new_column[j] = random.randint(0, 1)
+            new_column[j] = random.random()
         noise = np.insert(noise, -1, new_column, axis=1)
         
     
