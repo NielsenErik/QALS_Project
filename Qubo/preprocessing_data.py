@@ -173,3 +173,11 @@ def vector_V_synthetic(inputData):
     vect = inputData.iloc[:,-1]
     v = vect.to_numpy()      
     return v
+
+def noisy_data_preprocessing(inputData):
+    vect = inputData.iloc[:,-1]
+    v = vect.to_numpy()
+    tmp = inputData.iloc[: , :-1]
+    outputMatrix = tmp.to_numpy()  
+    rows, column = outputMatrix.shape    
+    return v, outputMatrix, column
