@@ -19,6 +19,12 @@ def annealer(theta, sampler, k, time=False):
         print_step(f"Time: {time.time()-start}")    
     return list(response.first.sample.values())
 
+def hybrid_solver(Q, sampler):
+    
+    response = sampler.sample_qubo(Q) 
+     
+    return list(response.first.sample.values())
+
 def get_Q(q, simulation = True):
     #q = qubo_matrix in numpy, 
     #if Simulation = False: A  = get_nodes(...)
