@@ -4,13 +4,13 @@ import signal
 import sys
 
 from Qubo.qals import qals_solver
-from Qubo.import_data import german_credit_data, australian_credit_data, polish_bankrupcy_data, synthetic_Data
-from Qubo.preprocessing_data import vector_V_synthetic, rescaledDataframe_synthetic, rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian, vector_V_Polish, normalizing_Polish
+from Qubo.import_data import german_credit_data, australian_credit_data, polish_bankrupcy_data, synthetic_Data, import_noisy_data
+from Qubo.preprocessing_data import noisy_data_preprocessing, vector_V_synthetic, rescaledDataframe_synthetic, rescaledDataframe_German, vector_V_German, vector_V_Australian, rescaledDataframe_Australian, vector_V_Polish, normalizing_Polish
 from Qubo.colors import colors
 from Qubo.solverQubo import QUBOsolver
 from Qubo.solverRFECV import RFECV_solver
 from Qubo.getAccuracyScore import getAccuracy
-from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector, generate_random_data
+from Qubo.noisy_data import generate_noisy_data, generate_noisy_feature, noisy_feature_detector
 from Qubo.print_on_file import printStartInfos, printResults_w_Noisy_samples, printResults_w_Noisy_feature, printResults, outputTxt, end_file
 from Qubo.qubo_matrix import qubo_Matrix
 from Qubo.utils import print_step
@@ -56,9 +56,8 @@ def ask_for_simulation():
 def ask_which_dataset():
     print(colors.ORANGE ,"Wich dataset would you like to do feature selection?", colors.ENDC)    
     print(colors.ORANGE ,"[a] German Credit Data", colors.ENDC)  
-    print(colors.ORANGE ,"[b] Australian Credit Data", colors.ENDC)  
-    print(colors.ORANGE ,"[c] Polish Bankruptcy Data", colors.ENDC)
-    print(colors.ORANGE ,"[d] Synthetic Data", colors.ENDC)    
+    print(colors.ORANGE ,"[b] Noisy German Credit Data", colors.ENDC)
+    print(colors.ORANGE ,"[c] Synthetic Data", colors.ENDC)    
     print(colors.ORANGE ,"[e] To exit program", colors.ENDC)  
    
     check = False
@@ -84,25 +83,43 @@ def choose_dataset(answer):
         inputVector = vector_V_German(data)
         alpha = 0.977
     
-    elif(answer == 'c'):
-        data, data_name = polish_bankrupcy_data()
-        inputMatrix,matrix_Len = normalizing_Polish(data)
-        inputVector = vector_V_Polish(data)
-        alpha = 0.9  
-    
     elif(answer == 'b'):
-        data, data_name = australian_credit_data()
-        inputMatrix, matrix_Len = rescaledDataframe_Australian(data)
-        inputVector = vector_V_Australian(data)
-        alpha = 0.05  
-    elif(answer == 'd'):
-        print(colors.ORANGE)
-        nFeature = input("With how many features? ")
-        print(colors.ENDC)
-        data, data_name = synthetic_Data(nFeature)
-        inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
-        inputVector = vector_V_synthetic(data)
-        alpha = 0.9
+        try:
+            print(colors.ORANGE)
+            print("Wich type of noise?")
+            type= input("[1] feature, [2] samples ")
+            print(colors.ENDC)
+            print(type)
+            if(type == '1'):
+        #first transformed german.data into german.csv
+                print(colors.ORANGE)
+                n_answer = input("With how many noisy features? ")
+                print(colors.ENDC)
+            elif(type == '2'):
+                print(colors.ORANGE)
+                n_answer = input("With how much noisy samples% ")
+                print(colors.ENDC)
+            else:
+                print(colors.FAIL+"Dataset type doesnt exists, exiting.."+colors.ENDC)
+                exit()
+            data, data_name = import_noisy_data(n_answer, type)
+            inputVector, inputMatrix, matrix_Len = noisy_data_preprocessing(data)
+            alpha = 0.977
+        except:
+            print(colors.FAIL+"dataset with "+n_answer+" features doesn't exists"+colors.ENDC)
+  
+    elif(answer == 'c'):
+        try:
+            print(colors.ORANGE)
+            nFeature = input("With how many features? ")
+            print(colors.ENDC)
+            data, data_name = synthetic_Data(nFeature)
+            inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
+            inputVector = vector_V_synthetic(data)
+            alpha = 0.977
+        except:
+            print(colors.FAIL+"dataset with "+nFeature+" features doesn't exists"+colors.ENDC)
+            
     return data_name, inputMatrix, matrix_Len, inputVector, alpha
 
 def allFeaturesArray(dim):
@@ -124,7 +141,7 @@ def main():
     #variables needed globally
     
     n_reads_annealer = 30
-    qals_iteration = 20
+    qals_iteration = 10
     qals_n_reads_annealer = 1
     noisy_steps = 3
     data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)
@@ -151,47 +168,7 @@ def main():
 
     printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, z_pos, scoreQALS, feature_nQALS)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
-    #Testing methods with a percentage of noisy samples (noisy stemps are the percentage)
-    
-    
-
-    noisy_scoreQubo = np.zeros(noisy_steps)
-    noisy_scoreRfecv = np.zeros(noisy_steps)
-    noisy_feature_nQ = np.zeros(noisy_steps)
-    noisy_feature_nR = np.zeros(noisy_steps)
-    
-    for i in range(noisy_steps):
-        percentage_step = (i+1)*0.01
-        noisy_matrix, noisy_vector, noisy_data_name = generate_noisy_data(inputMatrix, inputVector, percentage_step, matrix_Len, data_name)
-        qubo_array_noisy = QUBOsolver(matrix_Len, alpha, noisy_matrix, noisy_vector, n_reads_annealer,simulation = sim) 
-        rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
-    
-        noisy_scoreQubo[i], noisy_feature_nQ[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
-        noisy_scoreRfecv[i], noisy_feature_nR[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_samples(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo[i], noisy_scoreRfecv[i], noisy_feature_nQ[i], noisy_feature_nR[i])
-        time.sleep(1)
-    fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
-    ##Testing methods with new noisy features
-    
-    noisy_scoreQubo_feature = np.zeros(noisy_steps)
-    noisy_scoreRfecv_feature = np.zeros(noisy_steps)
-    noisy_feature_nQ_feature = np.zeros(noisy_steps)
-    noisy_feature_nR_feature = np.zeros(noisy_steps)
-    
-    for i in range(noisy_steps):
-        noisy_matrix, noisy_vector, noisy_data_name = generate_noisy_feature(inputMatrix, inputVector, i, matrix_Len, data_name)
-        qubo_array_noisy = QUBOsolver(matrix_Len, alpha, noisy_matrix, noisy_vector, n_reads_annealer,simulation = sim) 
-        rfecv_array_noisy = RFECV_solver(noisy_matrix, noisy_vector)
-        
-        qubo_detector = noisy_feature_detector(qubo_array_noisy, matrix_Len)
-        rfecv_detector = noisy_feature_detector(rfecv_array_noisy, matrix_Len) 
-          
-        noisy_scoreQubo_feature[i], noisy_feature_nQ_feature[i] = getAccuracy(qubo_array_noisy, noisy_matrix, noisy_vector, isQubo= True, isRFECV=False)
-        noisy_scoreRfecv_feature[i], noisy_feature_nR_feature[i] = getAccuracy(rfecv_array_noisy, noisy_matrix, noisy_vector, isQubo= False, isRFECV=True)
-        printResults_w_Noisy_feature(i+1, fd, qubo_array_noisy, rfecv_array_noisy, noisy_scoreQubo_feature[i], noisy_scoreRfecv_feature[i], noisy_feature_nQ_feature[i], noisy_feature_nR_feature[i], qubo_detector, rfecv_detector)
-        time.sleep(1)
-    fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
-    
+   
     
     print("/////////////////////////////////////////////////////////////////////////////////////////////")
     
@@ -200,25 +177,8 @@ def main():
     print(colors.RESULT, "QUBO = ", scoreQubo, " Feature number = ", feature_nQ)
     print("RFECV = ", scoreRfecv, " Feature number = ", feature_nR, colors.ENDC)
     print(colors.RESULT, "Qals = ", scoreQALS, " Feature number = ", feature_nQALS)
-        
-    print(colors.BOLD, colors.HEADER, "RESULTS with NOISY SAMPLES", colors.ENDC)
     
-    for i in range(noisy_steps):
-        print(colors.BOLD, colors.HEADER, "Noise % = ", i+1, "% ", colors.ENDC)
-        print(colors.RESULT, "QUBO = ", noisy_scoreQubo[i], " Feature number = ", noisy_feature_nQ[i])
-        print("RFECV = ", noisy_scoreRfecv[i], " Feature number = ", noisy_feature_nR[i], colors.ENDC)
-        print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)
-    
-    print(colors.BOLD, colors.HEADER, "RESULTS with NOISY FEATURE", colors.ENDC)
-    print(colors.BOLD, colors.HEADER, "To check if noise was selected look at the output.txt", colors.ENDC)
-        
-    for i in range(noisy_steps):
-        print(colors.BOLD, colors.HEADER, "Noisy feature added  = ", i+1, colors.ENDC)
-        print(colors.RESULT, "QUBO = ", noisy_scoreQubo_feature[i], " Feature number = ", noisy_feature_nQ_feature[i])
-        print("RFECV = ", noisy_scoreRfecv_feature[i], " Feature number = ", noisy_feature_nR_feature[i], colors.ENDC)
-        print(colors.BOLD, colors.HEADER, "Done", colors.ENDC)  
-    
-    print("///////////////////////////////////////////////////////////////////////////////")
+    print(colors.ENDC+"///////////////////////////////////////////////////////////////////////////////")
     end_file(fd)  
     
     
