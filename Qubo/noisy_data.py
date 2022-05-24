@@ -28,7 +28,7 @@ def generate_noisy_data(inputMatrix, inputVector, noise_dim_percent, dim, input_
     dataset = pd.DataFrame(tmp)
     dataset_name = "German_dataset_noise_samples_"+str(noise_dim_percent)+".csv"
     path = "./Qubo/Data_folder/German/"+dataset_name
-    dataset.to_csv(path)
+    dataset.to_csv(path, index=False)
 
 def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, input_data_name):
     #inputMatrix = matrix from rescaledDataframe()
@@ -41,23 +41,18 @@ def generate_noisy_feature(inputMatrix, inputVector, noise_feature_number, dim, 
     print_step("Generating "+data_name+" with "+buffer+" feature of noise")
     noise = inputMatrix 
     rows, columns = inputMatrix.shape
-    
-    noisy_vector = inputVector
     for i in range(noise_feature_number):
         new_column = np.zeros(rows)
         for j in range(rows):
             #new_column[j] = random.randint(0, 1)
             new_column[j] = random.random()
-        noise = np.insert(noise, -1, new_column, axis=1)
+        noise = np.insert(noise, dim+i, new_column, axis=1)
     
-    tmp = np.insert(noise, dim, noisy_vector, axis = 1)
+    tmp = np.insert(noise, dim+noise_feature_number, inputVector, axis = 1)
     dataset = pd.DataFrame(tmp)
     dataset_name = "German_dataset_noise_feature_"+str(noise_feature_number)+".csv"
     path = "./Qubo/Data_folder/German/"+dataset_name
-    dataset.to_csv(path)
-        
-    
-    return noise, noisy_vector, data_name
+    dataset.to_csv(path, index=False)
     
 def noisy_feature_detector(array, dim):
     alert = False
