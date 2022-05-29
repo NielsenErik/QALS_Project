@@ -3,7 +3,7 @@
 from scipy import stats
 import numpy as np
 
-def column_Correlation(inputData, v_Vector):
+def column_Correlation(inputData, inputArray):
     #inputData = data_Rescaled(german_credit_data())
     #v_Vector = vectro_V(german_credit_data())
     #Anyway this functions works with any input matrix and 
@@ -13,27 +13,27 @@ def column_Correlation(inputData, v_Vector):
     
     '''Initialize correlation column matrix and correlation vector'''
     
-    corrColumnsMatrix = np.zeros((columns,columns))
-    corrColumnsV = np.zeros(columns)
+    correlation_w_features = np.zeros((columns,columns))
+    correlation_w_label = np.zeros(columns)
     
     '''Calculate correlation between each column and also between quality vector'''
     
-    v = np.asarray(v_Vector.astype(float))    
+    v = np.asarray(inputArray.astype(float))    
     for i in range(columns):
         x = np.asarray(inputData[:,i].astype(float))
-        tmpVect, tmp= stats.spearmanr(x,v)
-        corrColumnsV[i] = tmpVect
+        tmpVect, _= stats.spearmanr(x,v)
+        correlation_w_label[i] = tmpVect
         for j in range(columns):            
             y = np.asarray(inputData[:,j].astype(float))
-            tmpMatrix , tmp = stats.spearmanr(x,y)  
-            corrColumnsMatrix[i,j] = tmpMatrix
-            corrColumnsMatrix[j,i] = tmpMatrix
+            tmpValue , _ = stats.spearmanr(x,y)  
+            correlation_w_features[i,j] = tmpValue
+            correlation_w_features[j,i] = tmpValue
     #corrColumnsV = np.absolute(corrColumnsV)
     #corrColumnsMatrix = np.absolute(corrColumnsMatrix)      
     
-    return corrColumnsV, corrColumnsMatrix
+    return correlation_w_label, correlation_w_features
 
-def qubo_Matrix (alpha, inputMatrix, inputVector):
+def qubo_Matrix (alpha, inputData, inputArray):
     #alpha = weighting needed in the QUBO formulation
     #inputMatrix = matrix from rescaledDataframe()
     #inputVector = vector from vector_V()
@@ -41,7 +41,7 @@ def qubo_Matrix (alpha, inputMatrix, inputVector):
     
     '''Data preprocessing and correlation matrix and vector'''
  
-    rho_vector_V, rho_column = column_Correlation(inputMatrix, inputVector)
+    rho_vector_V, rho_column = column_Correlation(inputData, inputArray)
     rho_vector_V = np.absolute(rho_vector_V)
     rho_column = np.absolute(rho_column)
     '''Qubo initiaization and creation'''

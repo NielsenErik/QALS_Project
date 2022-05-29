@@ -178,7 +178,6 @@ def noisy_data_preprocessing(inputData):
     vect = inputData.iloc[:,-1]
     v = vect.to_numpy()
     tmp = inputData.iloc[: , :-1]
-    print(tmp)
     outputMatrix = tmp.to_numpy()  
     rows, column = outputMatrix.shape    
     return v, outputMatrix, column
