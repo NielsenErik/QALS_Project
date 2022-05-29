@@ -77,6 +77,8 @@ def ask_which_dataset():
 
     return answer  
 def choose_dataset(answer):
+    feature_noise = False
+    noise = 0
     if(answer == 'a'):
         data, data_name = german_credit_data()
         inputMatrix, matrix_Len = rescaledDataframe_German(data)
@@ -90,14 +92,17 @@ def choose_dataset(answer):
             type= input("[1] feature, [2] samples ")
             print(colors.ENDC)
             print(type)
-            if(type == '1'):
+            if(type == '1'): 
         #first transformed german.data into german.csv
                 print(colors.ORANGE)
                 n_answer = input("With how many noisy features? ")
+                feature_noise = True
+                noise = n_answer
                 print(colors.ENDC)
             elif(type == '2'):
                 print(colors.ORANGE)
-                n_answer = input("With how much noisy samples% ")
+                n_answer = input("With how much noisy samples % ")
+                noise = n_answer
                 print(colors.ENDC)
             else:
                 print(colors.FAIL+"Dataset type doesnt exists, exiting.."+colors.ENDC)
@@ -120,7 +125,7 @@ def choose_dataset(answer):
         except:
             print(colors.FAIL+"dataset with "+nFeature+" features doesn't exists"+colors.ENDC)
             
-    return data_name, inputMatrix, matrix_Len, inputVector, alpha
+    return data_name, inputMatrix, matrix_Len, inputVector, alpha,  noise
 
 def allFeaturesArray(dim):
     tmp = np.ones(dim)
@@ -143,8 +148,7 @@ def main():
     n_reads_annealer = 30
     qals_iteration = 10
     qals_n_reads_annealer = 1
-    noisy_steps = 3
-    data_name, inputMatrix, matrix_Len, inputVector, alpha = choose_dataset(answer=answer)
+    data_name, inputMatrix, matrix_Len, inputVector, alpha,  noise_N = choose_dataset(answer=answer)
     data_name_Qals = data_name
     inputMatrix_Qals = inputMatrix  
     matrix_Len_Qals = matrix_Len
@@ -154,7 +158,7 @@ def main():
     all_f_array = allFeaturesArray(matrix_Len)
     scoreDataset, _ = getAccuracy(all_f_array , inputMatrix, inputVector, isQubo = False, isRFECV =False, isAllFeature = True)
     
-    printStartInfos(alpha, data_name, fd, scoreDataset)
+    printStartInfos(alpha, data_name, fd, scoreDataset, noise_N)
    
     qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, n_reads_annealer,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
@@ -165,7 +169,7 @@ def main():
     z_qals, conv_time = qals_solver(d_min=70, eta_prob_dec_rate=0.01, i_max=qals_iteration, k_n_reads=qals_n_reads_annealer, lambda_zero=3/2, dim_problem=matrix_Len_Qals, N_it_const_prob=10, N_max=100, p_delta=0.1, q_perm_prob=0.2, topology='pegasus', QUBO=qubo_qals, log_DIR='qals_output.txt', sim = sim)
     z_pos = np.asarray(np.where(z_qals>0)).flatten()
     scoreQALS, feature_nQALS = getAccuracy(z_pos, inputMatrix, inputVector, isQubo= False, isRFECV=False)
-
+   
     printResults(fd, qubo_array, rfecv_array, scoreQubo, scoreRfecv, feature_nQ, feature_nR, z_pos, scoreQALS, feature_nQALS)
     fd.write("////////////////////////////////////////////////////////////////////////////////////\n")
    

@@ -26,18 +26,18 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     qubo = get_Q(Q_matrix, simulation)
     if(simulation == False):
         print_step("Running Dwave", "QUBO")
-        sampler = EmbeddingComposite(DWaveSampler({'topology__type':'pegasus'}))
-        #sampler = LeapHybridSampler()
-        #x = hybrid_solver(qubo, sampler)
-        x = annealer(qubo, sampler, k)
+        #sampler = EmbeddingComposite(DWaveSampler({'topology__type':'pegasus'}))
+        sampler = LeapHybridSampler()
+        print_step("Running annealer", "QUBO")
+        x = hybrid_solver(qubo, sampler)
+        #x = annealer(qubo, sampler, k)
         
     else:
         print_step("Running simulation", "QUBO")
         sampler = neal.SimulatedAnnealingSampler()
+        print_step("Running annealer", "QUBO")
         x = annealer(qubo, sampler, k)
-    
-    
-    print_step("Running annealer", "QUBO")
+        
     print_step("Done with annealer", "QUBO")
     x = np.asarray(x)
     numerical_x = np.asarray(np.where(x>0)).flatten()

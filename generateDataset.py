@@ -23,22 +23,22 @@ def generateSintheticDataset(nSamples, nFeatures):
     data_name = "dataset_nf_"+str(nFeatures)+".csv"
     return dataset, data_name
 
-def generate_noisy_datsets_German():
+def generate_noisy_datsets_German(start, end):
     data, data_name = german_credit_data()
     inputMatrix, matrix_Len = rescaledDataframe_German(data)
     inputVector = vector_V_German(data)
-    noisy_steps = 5
-    for i in range(noisy_steps):
+    for i in range(start,end):
         generate_noisy_data(inputMatrix, inputVector, (i+1)*0.01, matrix_Len, data_name)
         generate_noisy_feature(inputMatrix, inputVector, i+1, matrix_Len, data_name)
     
 def n_datsates(n):
-    for i in range(n):
-        k = 10+i*10
+    for i in range(1,n):
+        k = i*50
         dataset, dataset_name = generateSintheticDataset(5000, k)
         path = "./Qubo/Data_folder/Synthetic_data/"+dataset_name
-        dataset.to_csv(path) 
+        dataset.to_csv(path, index=False) 
 
-generate_noisy_datsets_German() 
+generate_noisy_datsets_German(9,10) 
+#n_datsates(100)
 
 
