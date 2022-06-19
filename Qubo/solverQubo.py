@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3
 
+
 import neal
 import dwave_networkx as dnx
 import networkx as nx
@@ -12,7 +13,7 @@ from .utils import print_step
 from .graphs_for_dwave import annealer, get_Q, hybrid_solver
 from .qubo_matrix import qubo_Matrix
 
-def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
+def QUBOsolver(n, alpha, inputMatrix, inputVector, fd, k = 1, simulation = True):
     #n = dimension of problem, Q = qubo numpy Matrix, k = number of reads
     #in the annealer, simulation = simulate or run dwave
     #alpha = weighting needed in the QUBO formulation
@@ -26,12 +27,22 @@ def QUBOsolver(n, alpha, inputMatrix, inputVector, k = 1, simulation = True):
     qubo = get_Q(Q_matrix, simulation)
     if(simulation == False):
         print_step("Running Dwave", "QUBO")
-        #sampler = EmbeddingComposite(DWaveSampler({'topology__type':'pegasus'}))
-        sampler = LeapHybridSampler()
-        print_step("Running annealer", "QUBO")
-        x = hybrid_solver(qubo, sampler)
-        #x = annealer(qubo, sampler, k)
-        
+        hybrid = False
+        try:
+            sampler = EmbeddingComposite(DWaveSampler({'topology__type':'pegasus'}))
+            #sampler = LeapHybridSampler()
+            print_step("Running annealer", "QUBO")
+            #x = hybrid_solver(qubo, sampler)
+            x = annealer(qubo, sampler, k)
+        except:
+            hybrid = True
+            pass
+        if(hybrid == True):
+            print_step("Using Hybrid Leap", "QUBO")
+            sampler = LeapHybridSampler()
+            x = hybrid_solver(qubo, sampler)
+            fd.write("Using Hybrid\n")
+            
     else:
         print_step("Running simulation", "QUBO")
         sampler = neal.SimulatedAnnealingSampler()

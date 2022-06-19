@@ -164,14 +164,13 @@ def rescaledDataframe_synthetic(inputData, n_feature):
     outputData = pd.DataFrame(tmp)
     outputData = outputData.to_numpy()
     rows, column = outputData.shape
-    
     return outputData, column  
        
 def vector_V_synthetic(inputData):
     print_step("Creating classifying vector of good/bad credit")
     
     vect = inputData.iloc[:,-1]
-    v = vect.to_numpy()      
+    v = vect.to_numpy() 
     return v
 
 def noisy_data_preprocessing(inputData):

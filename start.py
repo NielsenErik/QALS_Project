@@ -121,7 +121,8 @@ def choose_dataset(answer):
             data, data_name = synthetic_Data(nFeature)
             inputMatrix, matrix_Len = rescaledDataframe_synthetic(data, nFeature)
             inputVector = vector_V_synthetic(data)
-            alpha = 0.977
+            alpha = 0.976
+            
         except:
             print(colors.FAIL+"dataset with "+nFeature+" features doesn't exists"+colors.ENDC)
             
@@ -145,9 +146,9 @@ def main():
     ###########################################
     #variables needed globally
     
-    n_reads_annealer = 30
+    n_reads_annealer = 20
     qals_iteration = 10
-    qals_n_reads_annealer = 1
+    qals_n_reads_annealer = 20
     data_name, inputMatrix, matrix_Len, inputVector, alpha,  noise_N = choose_dataset(answer=answer)
     data_name_Qals = data_name
     inputMatrix_Qals = inputMatrix  
@@ -160,7 +161,7 @@ def main():
     
     printStartInfos(alpha, data_name, fd, scoreDataset, noise_N)
    
-    qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, n_reads_annealer,simulation = sim)
+    qubo_array= QUBOsolver(matrix_Len, alpha, inputMatrix, inputVector, fd, n_reads_annealer,simulation = sim)
     rfecv_array = RFECV_solver(inputMatrix, inputVector)
     scoreQubo, feature_nQ = getAccuracy(qubo_array, inputMatrix, inputVector, isQubo= True, isRFECV=False)
     scoreRfecv, feature_nR = getAccuracy(rfecv_array, inputMatrix, inputVector, isQubo= False, isRFECV=True)
