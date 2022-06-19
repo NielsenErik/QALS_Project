@@ -10,14 +10,13 @@ def generateSintheticDataset(nSamples, nFeatures):
     X, y = make_classification(
         n_samples=nSamples,
         n_features=nFeatures,
-        n_informative=(nFeatures-int(0.05*nFeatures)),
-        n_redundant=0,
+        n_informative=(nFeatures-int(0.6*nFeatures)),
+        n_redundant=int(.1*nFeatures),
         n_repeated=0,
         n_classes=2,
         n_clusters_per_class=1,
         random_state=0,
     )
-    
     tmp = np.insert(X, nFeatures, y, axis = 1)
     dataset = pd.DataFrame(tmp)
     data_name = "dataset_nf_"+str(nFeatures)+".csv"
@@ -31,14 +30,15 @@ def generate_noisy_datsets_German(start, end):
         generate_noisy_data(inputMatrix, inputVector, (i+1)*0.01, matrix_Len, data_name)
         generate_noisy_feature(inputMatrix, inputVector, i+1, matrix_Len, data_name)
     
-def n_datsates(n):
-    for i in range(1,n):
-        k = i*50
-        dataset, dataset_name = generateSintheticDataset(5000, k)
+def n_datsates():
+    nf = [75,100,125,150,175,200,250,300,500,750,1000]
+    for i in nf:
+        
+        dataset, dataset_name = generateSintheticDataset(1500, i)
         path = "./Qubo/Data_folder/Synthetic_data/"+dataset_name
         dataset.to_csv(path, index=False) 
 
-generate_noisy_datsets_German(9,10) 
-#n_datsates(100)
+#generate_noisy_datsets_German(9,10) 
+n_datsates()
 
 
