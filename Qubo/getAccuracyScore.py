@@ -23,7 +23,7 @@ def getAccuracy(best_subset, inputMatrix, inputVector, isQubo, isRFECV , isAllFe
     tmp_x = x_tmp[:,pos]
     x = tmp_x.reshape(rows, columns)
     y = inputVector
-    sss = StratifiedShuffleSplit(n_splits=10000, test_size=0.5, random_state=0)
+    sss = StratifiedShuffleSplit(n_splits=3000, test_size=0.2, random_state=0)
     sss.get_n_splits(x, y)
     for train_index, test_index in sss.split(x, y):
         x_train, x_test = x[train_index], x[test_index]
